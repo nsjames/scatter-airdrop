@@ -12,7 +12,7 @@
                 <hr>
 
 
-                <h2>Scatter Token Airdrop</h2>
+                <h2>Primary Airdrop</h2>
                 <p>
                     Every EOS holder inside of the final EOS genesis file will recieve 40 RIDL Tokens. You do not have to reserve your name to recieve the airdrop, your tokens will
                     be provided for you when you create an Identity from Scatter using your private key regardless of reservation. The tokens will not be given on the Ethereum
