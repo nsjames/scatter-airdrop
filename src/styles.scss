@@ -1,0 +1,92 @@
+div, figure, section, nav, article, input, textarea, a, h1, h2, h3, p {
+  padding:0; margin:0; box-sizing: border-box;
+}
+
+body {
+  padding:0;
+  margin:0;
+  overflow-y:scroll;
+  word-break: break-word;
+  font-family: 'Raleway', sans-serif;
+  background:#13182b;
+}
+
+a {
+  display:inherit;
+  text-decoration: inherit;
+  color:inherit;
+}
+
+.sunshine {
+
+  &:after {
+    content:'';
+    display:block;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:1;
+    opacity:0;
+    background: linear-gradient(to top right, #6689da 0%,#b2f097 100%);
+    transition:opacity 0.8s ease;
+  }
+
+  &:hover:after, &.sun-open:after {
+    opacity:1;
+  }
+
+  &:not(.sun-stick){
+    &:active:after {
+      opacity:0;
+    }
+  }
+}
+
+.midnight {
+
+  &:before {
+    content:'';
+    display:block;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:1;
+    opacity:0;
+    background: linear-gradient(to top right, #13182b 0%,#1b2341 100%);
+    transition:opacity 0.2s ease;
+  }
+
+  &:active:before {
+    opacity:1;
+  }
+}
+
+.pad-sides {
+  padding:0 20px;
+}
+
+.max-1024 {
+  max-width:1024px;
+  width:100%;
+  margin:0 auto;
+}
+
+.open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.list-enter-active, .list-leave-active {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
