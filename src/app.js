@@ -43,7 +43,7 @@ class App {
 
         const middleware = (to, next, store) => {
             console.log('process.env.LIVE', process.env.LIVE, to);
-            if(!!process.env.LIVE && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
+            if(process.env.LIVE === false && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
             else next();
         };
 

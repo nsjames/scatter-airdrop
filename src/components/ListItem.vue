@@ -2,6 +2,10 @@
     <section>
         <section class="list-item" :class="{'open':open}" @click="opened">
 
+            <figure class="hex-image" v-if="binaryImage">
+                <img :src="binaryImage" />
+            </figure>
+
             <!-- RESERVATION ITEM -->
             <section class="container" v-if="reservation">
 
@@ -140,10 +144,13 @@
     import BidModel from '../models/BidModel'
     import CachingService from '../services/CachingService'
 
+    var QRCode = require('qrcode')
+
     export default {
         data(){ return {
             fetched:false,
             bids:[],
+            binaryImage:null,
         }},
         computed: {
             ...mapGetters([
@@ -159,6 +166,12 @@
                     this.bids = this.injectedBids;
                     this.fetched = true;
                 }
+
+//                const sample = `${this.reservation.name}`;// | ${this.reservation.genetics.join('')} | ${this.reservation.publicKey}
+//                QRCode.toDataURL(sample, (err, url) => {
+//                    console.log(url);
+//                    this.binaryImage = url;
+//                })
             }, 10)
         },
         methods: {
@@ -223,6 +236,18 @@
         width:100%;
         margin-bottom:10px;
         position: relative;
+
+        .hex-image {
+            height:60px;
+            width:60px;
+            border-radius:4px;
+            overflow:hidden;
+
+            img {
+                height:60px;
+                width:60px;
+            }
+        }
 
         .container {
             position:relative;

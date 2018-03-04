@@ -34,7 +34,7 @@
 
                 <h2>Primary Airdrop</h2>
                 <p>
-                    Every EOS holder inside of the final EOS genesis file will recieve 40 RIDL Tokens. You do not have to reserve your name to recieve the airdrop, your tokens will
+                    Every EOS holder inside of the final EOS genesis file will receive 40 RIDL Tokens. You do not have to reserve your name to receive the airdrop, your tokens will
                     be provided for you when you create an Identity from Scatter using your private key regardless of reservation. The tokens will not be given on the Ethereum
                     chain, they will only be dispensed when the Identity is created on the live EOS mainnet.
                 </p>
@@ -57,8 +57,8 @@
 
                 <h2>Secondary Airdrop</h2>
                 <p>
-                    Reserved User Identity Names will also be airdropped an additional 50 RIDL Tokens, raising their total to 100 ( 10 from registration, 40 from global airdrop and 50
-                    from reservation airdrop ).
+                    The first 5000 Reserved User Identity Names will also be airdropped an additional 50 RIDL Tokens, raising their total to 100
+                    ( 10 from registration, 40 from global airdrop and 50 from reservation airdrop ). The remaining reservations will only get 10, to a total of 60.
                 </p>
                 <hr>
 

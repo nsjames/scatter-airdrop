@@ -13,6 +13,7 @@
     "dotenv-webpack": "^1.5.4",
     "eosjs-ecc": "^2.0.1",
     "particles.js": "^2.0.0",
+    "qrcode": "^1.2.0",
     "vue": "^2.5.13",
     "vue-moment": "^3.2.0",
     "vue-router": "^3.0.1",
