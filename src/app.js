@@ -22,7 +22,6 @@ import Bid from './popups/Bid.vue'
 import Web3 from 'web3';
 
 const isLive = process.env.LIVE === 'true' ? true : false;
-console.log(process.env.LIVE, isLive);
 
 class App {
 
@@ -45,7 +44,6 @@ class App {
         ];
 
         const middleware = (to, next, store) => {
-            console.log('process.env.LIVE', isLive, to);
             if(!isLive && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
             else next();
         };
