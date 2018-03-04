@@ -79,6 +79,8 @@
                         Scatter does, this will help elevate the entire EOS project, it's community, and it's exposure.
                     </p>
                 </figure>
+
+                <list-item :reservation="reservation" :injected-bids="bids" :open="true" :disabled="true"></list-item>
                 <hr>
 
                 <h2>Identity Genetics</h2>
@@ -141,12 +143,55 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
 
+    import ReservationModel from '../models/ReservationModel';
+    import {RESERVATION_TYPES} from '../models/ReservationModel'
+    import BidModel from '../models/BidModel'
+    import {BID_STATE} from '../models/BidModel'
+
     export default {
         data(){ return {
-
+            reservation:null,
+            bids:[],
         }},
         mounted(){
-
+            this.reservation = ReservationModel.fromJson({
+                "type": "User",
+                "name": "ExampleReservation",
+                "publicKey": "EOS7sEen1iVnzhRzS4ZywJP9y5DzKqxom7N6cjJwiL8tymDypPQor",
+                "genetics": ['0x41', '0x41', '0x43'],
+                "email": "",
+                "id": "5",
+                "timestamp": "2018-03-03T13:13:32.125Z",
+                "topPrice": 12,
+                "openBids": 2,
+                "lastSoldFor": 3,
+                "eth": "0x95055Ae40C1B4df3c6c62d7c1a08386312763324",
+                "trx": "0xe94c1aa83629c18bd4c1bbf931c70d772b2a0c7d8c1ec01ad89f573cc0811907",
+                "openBidsKey": "reservation:5:bids",
+                "highestBidKey": "reservation:5:bids:highest"
+            });
+            this.bids = [
+                BidModel.fromJson({
+                    "eth": "0xd68D8aea8eC070f81aFCbD64aB617901e44d2f50",
+                    "price": 12,
+                    "publicKey": "EOS6nmammtFZrCGJfLQK8gVHNHec4JqajYNU3kvYNMdv15dYAuv4z",
+                    "reservationId": "6",
+                    "reservationKey": "reservation:6",
+                    "state": "top",
+                    "timestamp": 1520084762891,
+                    "trx": "0xfc1109cf32f9b5bfbeb412bd3262cf43dbe6a0b97520523f439cd952a0cbc2a3"
+                }),
+                BidModel.fromJson({
+                    "eth": "0xd68D8aea8eC070f81aFCbD64aB617901e44d2f50",
+                    "price": 10,
+                    "publicKey": "EOS6nmammtFZrCGJfLQK8gVHNHec4JqajYNU3kvYNMdv15dYAuv4z",
+                    "reservationId": "5",
+                    "reservationKey": "reservation:5",
+                    "state": "top",
+                    "timestamp": 1520084762891,
+                    "trx": "0xfc1109cf32f9b5bfbeb412bd3262cf43dbe6a0b97520523f439cd952a0cbc2a3"
+                })
+            ];
         },
         computed: {
             ...mapState([

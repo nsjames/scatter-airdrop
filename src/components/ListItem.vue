@@ -8,7 +8,9 @@
                 <!-- NAME -->
                 <section class="name-container">
                     <figure class="name">{{reservation.name}}</figure>
-                    <modifier :text="reservation.genetics"></modifier>
+                    <figure class="modifiers">
+                        <modifier :text="gene" v-for="(gene, i) in reservation.genetics" :key="i"></modifier>
+                    </figure>
                 </section>
 
                 <!-- BID INFO -->
@@ -151,6 +153,14 @@
 
             ])
         },
+        mounted(){
+            setTimeout(() => {
+                if(this.injectedBids) {
+                    this.bids = this.injectedBids;
+                    this.fetched = true;
+                }
+            }, 10)
+        },
         methods: {
             opened(){
                 this.$emit('opened');
@@ -162,18 +172,22 @@
                 return bid.eth === this.ethAddress;
             },
             submitBid(){
+                if(this.disabled) return false;
                 const highestBidEthereumKey = this.bids.length ? this.bids[0].eth : '';
                 this[Actions.SET_POPUP](PopupModel.bid(this.reservation, highestBidEthereumKey), res => {
                     console.log('bid popup', res);
                 });
             },
             submitUnBid(){
+                if(this.disabled) return false;
                 console.log('unbidding')
             },
             submitSale(){
+                if(this.disabled) return false;
                 console.log('selling')
             },
             viewReservation(){
+                if(this.disabled) return false;
                 this[Actions.SET_SEARCH_TERMS](this.bid.reservation.name);
             },
             ...mapActions([
@@ -181,7 +195,7 @@
                 Actions.SET_SEARCH_TERMS
             ])
         },
-        props:['open', 'reservation', 'bid'],
+        props:['open', 'reservation', 'bid', 'injectedBids', 'disabled'],
         watch:{
             open(isOpen){
                 if(isOpen) CachingService.bids(this.reservation.id)
@@ -251,11 +265,17 @@
             display:inline-block;
         }
 
-        .modifier {
-            display:inline-block;
-            position:absolute;
-            margin-left:10px;
-            top:-6px;
+        .modifiers {
+            display: inline-block;
+            position: absolute;
+            margin-left: 10px;
+            top: -6px;
+            width: 100px;
+
+            .modifier {
+                display:inline-block;
+                margin-left:2px;
+            }
         }
     }
 
