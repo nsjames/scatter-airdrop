@@ -126,6 +126,8 @@
                     The only thing being sold here on this website is an actual virtual asset in the form of a reserved name for the future EOS blockchain.
                     You may liken the reservation process to that of pre-purchasing a video game, book, or concert tickets.
                 </p>
+
+                <div style="height:200px;"></div>
             </section>
         </section>
 

@@ -13,8 +13,8 @@
 
             <section class="reservation">
                 <figure class="" style="color:#fff;">
-                    We know you are itching to reserve your name, but we're not quite ready yet.
-                    If you want us to let you know when we're live enter your email below.
+                    We know you are itching to reserve your name and take part in the auction,
+                    but we're not quite ready yet.
                 </figure>
                 <br>
 
