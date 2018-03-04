@@ -48,7 +48,7 @@ class App {
         };
 
         new VueInitializer(routes, components, middleware, (router, store) => {
-            if(process.env.LIVE) this.initializeEthereum(store);
+            if(process.env.LIVE === true) this.initializeEthereum(store);
         });
     }
 
