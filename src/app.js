@@ -21,6 +21,9 @@ import Bid from './popups/Bid.vue'
 
 import Web3 from 'web3';
 
+const isLive = process.env.LIVE === 'true' ? true : false;
+console.log(process.env.LIVE, isLive);
+
 class App {
 
     constructor(){
@@ -42,13 +45,13 @@ class App {
         ];
 
         const middleware = (to, next, store) => {
-            console.log('process.env.LIVE', process.env.LIVE, to);
-            if(process.env.LIVE === false && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
+            console.log('process.env.LIVE', isLive, to);
+            if(!isLive && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
             else next();
         };
 
         new VueInitializer(routes, components, middleware, (router, store) => {
-            if(process.env.LIVE === true) this.initializeEthereum(store);
+            if(isLive) this.initializeEthereum(store);
         });
     }
 
