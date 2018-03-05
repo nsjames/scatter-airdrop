@@ -105,10 +105,10 @@
                                 <figure class="key">POSTED</figure>
                                 <figure class="value open-sans" style="text-transform: uppercase">{{b.timestamp/1000 | moment("from", "now")}}</figure>
                             </section>
-                            <section class="kv" v-if="index === 0">
-                                <figure class="key">ENDING</figure>
-                                <figure class="value open-sans" style="text-transform: uppercase">{{new Date(b.timestamp).setDate(new Date(b.timestamp).getDate() + 2)/1000 | moment("from", "now")}}</figure>
-                            </section>
+                            <!--<section class="kv" v-if="index === 0">-->
+                                <!--<figure class="key">ENDING</figure>-->
+                                <!--<figure class="value open-sans" style="text-transform: uppercase">{{new Date(b.timestamp).setDate(new Date(b.timestamp).getDate() + 2)/1000 | moment("from", "now")}}</figure>-->
+                            <!--</section>-->
                             <!--<section class="kv">-->
                             <!--<figure class="key">SOLD</figure>-->
                             <!--<figure class="value">HERE</figure>-->
