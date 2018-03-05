@@ -18,7 +18,7 @@
 
                 <section class="ctas">
                     <a href="https://docs.google.com/document/d/1P6Oz08vNjrJO1H3HmBkuh4BIVm3-0YAe4nqo-xfT4v0/edit?usp=sharing" target="_blank">
-                        <rounded-button big="More About RIDL" small="Reputation and Identity Layer"></rounded-button>
+                        <rounded-button big="More About RIDL" small="Join the community effort!"></rounded-button>
                     </a>
                     <a href="http://www.scatter-eos.com" target="_blank">
                         <rounded-button big="More About Scatter" small="Already a working product."></rounded-button>
@@ -32,10 +32,55 @@
                 <hr>
 
 
+                <h2>What is RIDL?</h2>
+                <p>
+                    RIDL ( or <i>Reputation and Identity Layer</i> ) is a sister system to Scatter that provides Identity verification across all networks and reputation tied to those Identities.
+                    It's primary purpose is to help users make educated decisions about the security of the applications they are using with Scatter and to help applications mitigate the affect of bad actors
+                    on their systems.
+                    <br><br>
+                    Let's look at some of the benefits:
+                </p>
+                <ul>
+                    <li>
+                        <b>Unique Identity Names</b>
+                        <br>
+                        Identity names registered with RIDL will be tied to specific contract accounts ( for applications ) or Scatter Identities ( for users ).
+                        By doing this Scatter is able to let users know that they are on a malicious version of a website
+                        ( for instance <b>Bitfịnex.com</b> <i class="fa fa-long-arrow-left"></i> notice the dot under the <b>i</b> )
+                        because the contract, account and network registered with RIDL will not match the malicious account that is requesting a transaction signature.
+                    </li>
+
+                    <li>
+                        <b>Reputation</b>
+                        <br>
+                        Identities that have been registered with RIDL will be able to take part in the reputation system.
+                        Applications and Users can repute each other and raise or lower each others reputation standing.
+                        This makes it so that users can come together to positively or negatively repute an application and allow
+                        other new users to know instantly whether the application does what it says it does.
+                        <br><br>
+                        <ul>
+                            <li>Users can repute applications only once, but can change their repute whenever they wish ( +1 or -1 ).</li>
+                            <li>Applications can repute users many times but only once every 24 hours and must have a <i>good standing</i>.</li>
+                        </ul>
+                    </li>
+
+                    <!--<li>-->
+                        <!--<b>Reputation Ledger</b>-->
+                        <!--<br>-->
+                        <!--An Identity's complete ledger of reputes is public and visible by all. What this gives is the ability for-->
+                        <!--applications to view and review reputes towards a user and apply application logical rulings towards them such as the ability to-->
+                        <!--take larger loans because of a good history of repayment on similar applications.-->
+                    <!--</li>-->
+
+                </ul>
+                <hr>
+
+
                 <h2>Primary Airdrop</h2>
                 <p>
                     Every EOS holder inside of the final EOS genesis file will receive 40 RIDL Tokens. You do not have to reserve your name to receive the airdrop, your tokens will
-                    be provided for you when you create an Identity from Scatter using your private key regardless of reservation. The tokens will not be given on the Ethereum
+                    be provided for you when you create an Identity from Scatter using your private key regardless of reservation. You will still need to register an Identity with RIDL in the future in order
+                    to claim the tokens. The tokens will not be given on the Ethereum
                     chain, they will only be dispensed when the Identity is created on the live EOS mainnet.
                 </p>
                 <hr>
@@ -43,9 +88,9 @@
                 <h2>Identity Name Reservation</h2>
                 <p>
                     If you want to make sure that you get the name you want at the launch of the EOS mainnet or if you simply want to take part in the name auction, you will be able to reserve a
-                    name and claim it once the auction opens. User Identity Names will be transferable until June 1st at which point they will be locked to the EOS public key they are tied to at the time.
+                    name and claim it once the auction opens. User Identity Names will be transferable until June 1st at which point they will be locked to the EOS public key they are tied to at that moment.
                     <br><br>
-                    <b>Applications</b> must prove their ownership of the application name via real world means in order to reserve the name due to copyright and intellectual property laws. If an
+                    <b>Applications</b> must prove their ownership of the application name against a representative of Scatter in order to reserve the name due to copyright and intellectual property laws. If an
                     application reserves a name that is already taken by a user and then verified successfully the user’s EOS will be returned to them and the application will assume ownership of the name at
                     the base price. Application Identities are non-transferable and can not take part in the auction system. Applications always start with 0 RIDL Tokens. If an
                     application has tokens allocated to it’s public key when it is registered they will not be given to the Application Identity, but can still be claimed by User Identities
@@ -76,7 +121,7 @@
                     <p style="margin:0;">
                         <b>All bids are also done in EOS.</b> The reasoning for this being that we have a feeling that this auction will break through the bubble of EOS and flow into
                         the general cryptocurrency world. Once that happens people who do not hold EOS will have to purchase EOS to take part in the auction. Like everything
-                        Scatter does, this will help elevate the entire EOS project, it's community, and it's exposure.
+                        Scatter does, we hope this will help elevate the entire EOS project, it's community, and it's exposure.
                     </p>
                 </figure>
 
@@ -98,33 +143,37 @@
                         When a name is reserved it is applied a random genetic letter.<br>
                         Every time it is sold it is applied another genetic modifier. This will happen until the genetic sequence has reached 5 letters.
                         </span>
-
+                        Identities registered with RIDL after the mainnet launch will not have this genetic material assigned to them upon registration.
+                        It is given exclusively for the participants of the reservation and auction. Think of it as a permanent mark of appreciation from us at Scatter.
                     </p>
                 </section>
                 <hr>
 
                 <h2>What will the proceeds from the reservations go towards?</h2>
                 <p>
-                    <b>Every penny will go right back into the project and fund further development of Scatter and RIDL.</b>
-                    This includes but is not limited to hiring more developers and
-                    splitting the development teams into three, <i>Desktop, Mobile, and RIDL.</i>
-                    <br>
-                    <br>
-                    A large portion will also be put into educating developers on
+                    <b>70% will go into funding the further development of Scatter and RIDL.</b>
+                    This will include hiring more developers and splitting the development team into three team,
+                    <i>one for Web Browsers, one for Mobile, and one <span style="text-decoration: line-through">to rule them all.</span> for RIDL.</i>
+                    <br><br>
+                    20% will be put into educating developers on
                     how to work with EOS, eosjs, Scatter, and RIDL via documentation and video/written tutorials.
+                    <br><br>
+                    The remaining 10% will be put into advertising both EOS and Scatter to raise awareness about EOS's ability to provide a scalable blockchain solution that
+                    developers can take advantage of <b>now</b> and Scatter's ability to provide a user-experience never seen before on the blockchain or otherwise.
                 </p>
                 <hr>
 
-                <h2>This is <u>NOT</u> and Initial Coin Offering</h2>
+                <h2>This is <u>NOT</u> an Initial Coin Offering</h2>
                 <p>
                     In no way is this an ICO. No tokens are being sold or even recorded on the Ethereum chain. The tokens will only be minted on the actual EOS network, and
-                    they will only be applied to the EOS public keys ( from genesis and the airdrop contract ) once that happens.
-                    The tokens currently have no price or value attached to them simply due to the fact that they do not exist on any network.
-                    <b>Any RIDL tokens on the Ethereum blockchain are <u>NOT</u> endorsed by Scatter and have nothing to do with us or this airdrop/auction.</b>
-                    The RIDL Token is a <b>utility</b> token. Though it <u>can</u> be, it is not Scatter's intention for the token to be sold and/or traded.
+                    they will only be applied to the EOS public keys ( from genesis and the reservation contract's cache ) once that happens.
+                    The tokens can have no price or value attached to them simply due to the fact that they do not exist on any network.
+                    <b>Any RIDL tokens on any network besides EOS are <u>NOT</u> ours, and have nothing to do with us or this airdrop/auction.</b>
+                    The RIDL Token is a <b>utility</b> token. Though it <u>can</u> be, it is not Scatter's intention for the token to be sold for any monetary value.
                     <br><br>
                     The only thing being sold here on this website is an actual virtual asset in the form of a reserved name for the future EOS blockchain.
-                    You may liken the reservation process to that of pre-purchasing a video game, book, or concert tickets.
+                    You may liken the reservation process to that of reserving a seat at a ball game, pre-purchasing a video game, or buying concert tickets. It is also not our intention for the
+                    Genetics to be used as a gambling mechanism. There is no difference between the letters other than that given by the community, they do not affect RIDL in any way.
                 </p>
 
                 <div style="height:200px;"></div>
@@ -164,7 +213,7 @@
                 "email": "",
                 "id": "5",
                 "timestamp": "2018-03-03T13:13:32.125Z",
-                "topPrice": 12 * 1000000000000000000,
+                "topPrice": 12,
                 "openBids": 2,
                 "lastSoldFor": 3 * 1000000000000000000,
                 "eth": "0x95055Ae40C1B4df3c6c62d7c1a08386312763324",
@@ -224,7 +273,7 @@
         margin:100px 0;
         color:#fff;
         font-weight:300;
-        max-height:2000px;
+        max-height:5000px;
         transition:max-height 0.5s ease, margin 0.5s ease, opacity 0.3s ease;
         overflow: hidden;
         opacity:1;
@@ -243,7 +292,7 @@
             font-size:18px;
         }
 
-        p {
+        p, ul {
             font-size:13px;
             color:#636c8f;
             margin-bottom:30px;
@@ -251,6 +300,16 @@
 
             .light {
                 color:#919cc4;
+            }
+        }
+
+        ul {
+            b {
+                font-size:15px;
+            }
+
+            li {
+                margin-bottom:10px;
             }
         }
 
