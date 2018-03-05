@@ -28,7 +28,7 @@
                         <figure class="value">BIDS</figure>
                     </section>
                     <section class="kv">
-                        <figure class="key">PREVIOUSLY {{reservation.lastSoldFor}}</figure>
+                        <figure class="key">PREVIOUSLY {{reservation.lastSoldFor | price}}</figure>
                         <figure class="value">EOS</figure>
                     </section>
                     <section class="kv">
@@ -51,7 +51,7 @@
 
                 <!-- NAME -->
                 <section class="name-container">
-                    <figure class="name"><span class="open-sans">{{bid.price}}</span> <b>EOS</b></figure>
+                    <figure class="name"><span class="open-sans">{{bid.price | price}}</span> <b>EOS</b></figure>
                 </section>
 
                 <!-- BID INFO -->
@@ -96,7 +96,7 @@
                     <section class="bid" v-for="(b, index) in bids">
                         <!-- NAME -->
                         <section class="name-container">
-                            <figure class="name"><span class="open-sans">{{b.price}}</span> <b>EOS</b></figure>
+                            <figure class="name"><span class="open-sans">{{b.price | price}}</span> <b>EOS</b></figure>
                         </section>
 
                         <!-- BID INFO -->

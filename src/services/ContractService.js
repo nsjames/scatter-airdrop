@@ -1,5 +1,8 @@
 import CachingService from './CachingService';
 
+const decimals = 1000000000000000000;
+const registrationPrice = process.env.RESERVATION_PRICE*decimals;
+
 export default class ContractService {
 
     constructor(){}
@@ -12,10 +15,6 @@ export default class ContractService {
             const exit = ContractService.exiter(reject, 'ContractService.reserveUser()');
             const options = {from:context.mmaddr};
 
-            //TODO: Test data
-            // name = 'hello2';
-            // publicKey = 'EOS6Li9tCwRJtsNtPz7tt5dMs3XaQpQLpHPsAvTJ8sVmyuq6Ubhvc';
-
             const reservationArgs = [
                 bytes(name),
                 bytes(publicKey)
@@ -23,9 +22,8 @@ export default class ContractService {
 
             const exists = await context.scatterContract.methods.exists(bytes(name)).call().catch(exit);
             if(exists) exit("Name exists");
-            console.log(exists);
 
-            ContractService.allowEOS(context,process.env.RESERVATION_PRICE,exit).then(async allowed => {
+            ContractService.allowEOS(context,registrationPrice,exit).then(async allowed => {
                 if(!allowed) exit("Must approve EOS allowance");
 
                 const reserved = await context.scatterContract.methods.reserveUser(...reservationArgs).send(options).catch(exit);
@@ -53,6 +51,7 @@ export default class ContractService {
     }
 
     static bid(context, bid){
+        bid.price = bid.price*decimals;
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
             const exit = ContractService.exiter(reject, 'ContractService.bid()');
@@ -63,8 +62,6 @@ export default class ContractService {
                 bid.price,
                 bytes(bid.publicKey)
             ];
-
-            console.log(bidArgs);
 
             ContractService.allowEOS(context,bid.price,exit).then(async allowed => {
                 if(!allowed) exit("Must approve EOS allowance");

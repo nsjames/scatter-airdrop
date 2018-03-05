@@ -164,9 +164,9 @@
                 "email": "",
                 "id": "5",
                 "timestamp": "2018-03-03T13:13:32.125Z",
-                "topPrice": 12,
+                "topPrice": 12 * 1000000000000000000,
                 "openBids": 2,
-                "lastSoldFor": 3,
+                "lastSoldFor": 3 * 1000000000000000000,
                 "eth": "0x95055Ae40C1B4df3c6c62d7c1a08386312763324",
                 "trx": "0xe94c1aa83629c18bd4c1bbf931c70d772b2a0c7d8c1ec01ad89f573cc0811907",
                 "openBidsKey": "reservation:5:bids",
@@ -175,7 +175,7 @@
             this.bids = [
                 BidModel.fromJson({
                     "eth": "0xd68D8aea8eC070f81aFCbD64aB617901e44d2f50",
-                    "price": 12,
+                    "price": 12 * 1000000000000000000,
                     "publicKey": "EOS6nmammtFZrCGJfLQK8gVHNHec4JqajYNU3kvYNMdv15dYAuv4z",
                     "reservationId": "6",
                     "reservationKey": "reservation:6",
@@ -185,7 +185,7 @@
                 }),
                 BidModel.fromJson({
                     "eth": "0xd68D8aea8eC070f81aFCbD64aB617901e44d2f50",
-                    "price": 10,
+                    "price": 10 * 1000000000000000000,
                     "publicKey": "EOS6nmammtFZrCGJfLQK8gVHNHec4JqajYNU3kvYNMdv15dYAuv4z",
                     "reservationId": "5",
                     "reservationKey": "reservation:5",

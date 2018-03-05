@@ -9,7 +9,6 @@ contract ScatterReservation {
         bytes1 entityType;
         bytes24 name;
         bytes publicKey;
-        bytes1[] genetics;
     }
 
     struct Bid {
@@ -22,7 +21,7 @@ contract ScatterReservation {
 
     // STATE VARIABLES
     // ---------------------------------
-    address constant EOS = 0x86829ef8ea3f498fb931e6f279bb41b955b3c14d;
+    address constant EOS = 0xb2b981a066e7dc7ec84e031de79f1636859e5af9;
     uint constant bidTimeout = 2 days;
 
     address public owner;
@@ -39,6 +38,7 @@ contract ScatterReservation {
 
     mapping (bytes24 => uint) public names;
     mapping (bytes24 => uint) public pendingNames;
+    mapping (uint => bytes1[]) public genetics;
 
     uint public atomicResId;
 
@@ -77,8 +77,8 @@ contract ScatterReservation {
         return names[name] > 0 || pendingNames[name] > 0;
     }
 
-    function genetics(uint rId) public constant returns (bytes1[]) {
-        return reservations[rId].genetics;
+    function getGenetics(uint rId) public constant returns (bytes1[]) {
+        return genetics[rId];
     }
 
     // CHANGE STATE
@@ -102,7 +102,8 @@ contract ScatterReservation {
 
         names[name] = atomicResId;
         reservers[atomicResId] = msg.sender;
-        reservations[atomicResId] = Reservation(atomicResId, 0, name, pkey, initializeGenetics(name,pkey));
+        reservations[atomicResId] = Reservation(atomicResId, 0, name, pkey);
+        genetics[atomicResId].push(gene(name,pkey));
         lastSoldFor[atomicResId] = reservationPrice;
         EmitReservation(atomicResId);
         return atomicResId;
@@ -118,7 +119,7 @@ contract ScatterReservation {
         atomicResId++;
 
         reservers[atomicResId] = msg.sender;
-        pendingReservations[atomicResId] = Reservation(atomicResId, 1, name, pkey, initializeGenetics(name,pkey));
+        pendingReservations[atomicResId] = Reservation(atomicResId, 1, name, pkey);
         EmitPendingReservation(atomicResId);
         return atomicResId;
     }
@@ -200,8 +201,8 @@ contract ScatterReservation {
         lastSoldFor[rId] = bids[rId].price;
 
         // Adding gene
-        if(reservations[rId].genetics.length < 5)
-            reservations[rId].genetics.push(gene(bytes24(msg.sender),bids[rId].publicKey));
+        if(genetics[rId].length < 5)
+            genetics[rId].push(gene(bytes24(msg.sender),bids[rId].publicKey));
 
         // Removing bid
         delete bids[rId];
@@ -250,10 +251,11 @@ contract ScatterReservation {
         return true;
     }
 
-    function initializeGenetics(bytes24 name, bytes pkey) internal view returns(bytes1[]){
-        bytes1[] memory genes = new bytes1[](1);
-        genes[0] = gene(name,pkey);
-        return genes;
+    function initializeGenetics(bytes24 name, bytes pkey) internal view returns(bytes1){
+        // bytes1[] memory genes = new bytes1[](1);
+        // genes[0] = gene(name,pkey);
+        // return genes;
+        return gene(name,pkey);
     }
 
     function gene(bytes24 name, bytes pkey) internal view returns(bytes1) {

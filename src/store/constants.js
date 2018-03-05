@@ -1,5 +1,6 @@
 
 export const SET_WEB3 = 'setWeb3';
+
 export const SET_EOS_CONTRACT = 'setEosContract';
 export const SET_SCATTER_CONTRACT = 'setScatterContract';
 

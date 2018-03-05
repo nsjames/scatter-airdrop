@@ -85,6 +85,13 @@
         methods: {
             submitBid(){
                 console.log('bidding: ', this.price)
+                if(this.price <= this.popup.data.lastSoldFor){
+                    this[Actions.PUSH_SNACKBAR](new Snackbar(`
+                        You can not bid less than the last price this name was sold for.
+                    `));
+                    return false;
+                }
+
                 if(this.price <= this.popup.data.topPrice){
                     this[Actions.PUSH_SNACKBAR](new Snackbar(`
                         You can not bid less than the last highest bid.

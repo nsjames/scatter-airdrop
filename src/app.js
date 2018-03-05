@@ -22,6 +22,7 @@ import Bid from './popups/Bid.vue'
 import Web3 from 'web3';
 
 const isLive = process.env.LIVE === 'true' ? true : false;
+console.log('isLive', isLive);
 
 class App {
 
@@ -44,7 +45,9 @@ class App {
         ];
 
         const middleware = (to, next, store) => {
+            console.log('isLive', isLive);
             if(!isLive && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
+            else if(isLive && to.name === RouteNames.LANDING) next({name:RouteNames.INDEX});
             else next();
         };
 
@@ -61,23 +64,18 @@ class App {
         }
 
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
-        console.log('hi', store.state.w3);
-
-        web3.eth.getAccounts((err, accounts) => {
-            web3.defaultAccount = accounts[0];
-            store.dispatch(Actions.SET_WEB3, web3);
-            setTimeout(() => this.getAccounts(web3, store), 1000);
-        });
-
         this.getAccounts(web3, store);
     }
 
     getAccounts(web3, store){
         web3.eth.getAccounts((err, accounts) => {
-            if(accounts[0] !== web3.defaultAccount){
-                web3.defaultAccount = accounts[0];
-                store.dispatch(Actions.SET_WEB3, web3);
-            }
+            if(accounts.length) {
+                if(accounts[0] !== web3.defaultAccount){
+                    web3.defaultAccount = accounts[0];
+                    store.dispatch(Actions.SET_WEB3, web3);
+                }
+            } else store.dispatch(Actions.SET_WEB3, null);
+
             setTimeout(() => this.getAccounts(web3, store), 2000);
         });
     }

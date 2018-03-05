@@ -99,7 +99,7 @@
     "outputs": [
       {
         "name": "",
-        "type": "bytes1"
+        "type": "bytes1[]"
       }
     ],
     "payable": false,
@@ -164,10 +164,6 @@
       {
         "name": "publicKey",
         "type": "bytes"
-      },
-      {
-        "name": "genetics",
-        "type": "bytes1"
       }
     ],
     "payable": false,
@@ -279,10 +275,6 @@
       {
         "name": "publicKey",
         "type": "bytes"
-      },
-      {
-        "name": "genetics",
-        "type": "bytes1"
       }
     ],
     "payable": false,

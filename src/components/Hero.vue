@@ -11,7 +11,7 @@
                 </figure>
             </section>
 
-            <section class="reservation">
+            <section class="reservation" v-if="w3">
                 <section class="input-container">
                     <input placeholder="Choose an Identity Name" v-model="newReservation.name" />
                 </section>
@@ -39,8 +39,28 @@
                 </figure>
             </section>
 
-        </section>
+            <section class="reservation" v-else>
+                <figure class="" style="color:#fff;">
+                    <figure class="box">
+                        You need MetaMask in order to participate in the reservation and auction system.
+                        <br><br>
+                        <p>
+                            If you already <b>have</b> MetaMask, it's probably locked.
+                        </p>
+                    </figure>
+                </figure>
+                <br>
+                <br>
 
+                <section class="cta">
+                    <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">
+                        <rounded-button big="Get MetaMask Extension" small="Who uses these things anyway?"></rounded-button>
+                    </a>
+                </section>
+
+            </section>
+
+        </section>
 
     </section>
 </template>
@@ -208,6 +228,17 @@
             .reservation {
                 width:350px;
                 margin-top:50px;
+                font-size:13px;
+
+                .box {
+                    border:1px solid rgba(255,255,255,0.3);
+                    padding:10px;
+                    border-radius:4px;
+                }
+
+                p {
+                    font-size:9px;
+                }
 
                 .input-container {
                     width:100%;

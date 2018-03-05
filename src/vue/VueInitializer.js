@@ -17,6 +17,7 @@ export default class VueInitializer {
                 middleware = () => {},
                 routerCallback = () => {}){
         this.setupVuePlugins();
+        this.setupVueFilters();
         this.registerComponents(components);
         const router = this.setupRouting(routes, middleware);
 
@@ -27,6 +28,10 @@ export default class VueInitializer {
     setupVuePlugins(){
         Vue.use(VueRouter);
         Vue.use(VueMoment);
+    }
+
+    setupVueFilters(){
+        Vue.filter('price', (value) => value <= 0 ? 0 : value / 1000000000000000000)
     }
 
     registerComponents(components){
