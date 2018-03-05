@@ -59,10 +59,10 @@
                     <section class="kv" style="color:#fff;">
                         <figure class="key">{{bid.reservation.name}}</figure>
                     </section>
-                    <section class="kv">
-                        <figure class="key">ENDING</figure>
-                        <figure class="value open-sans" style="text-transform: uppercase">{{new Date(bid.timestamp).setDate(new Date(bid.timestamp).getDate() + 2)/1000 | moment("from", "now")}}</figure>
-                    </section>
+                    <!--<section class="kv">-->
+                        <!--<figure class="key">ENDING</figure>-->
+                        <!--<figure class="value open-sans" style="text-transform: uppercase">{{new Date(bid.timestamp).setDate(new Date(bid.timestamp).getDate() + 2)/1000 | moment("from", "now")}}</figure>-->
+                    <!--</section>-->
                     <!--<section class="kv">-->
                     <!--<figure class="key">SOLD</figure>-->
                     <!--<figure class="value">HERE</figure>-->
