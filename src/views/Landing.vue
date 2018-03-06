@@ -152,7 +152,7 @@
                 <h2>What will the proceeds from the reservations go towards?</h2>
                 <p>
                     <b>70% will go into funding the further development of Scatter and RIDL.</b>
-                    This will include hiring more developers and splitting the development team into three team,
+                    This will include hiring more developers and splitting the development team into three teams,
                     <i>one for Web Browsers, one for Mobile, and one <span style="text-decoration: line-through">to rule them all.</span> for RIDL.</i>
                     <br><br>
                     20% will be put into educating developers on
