@@ -10,6 +10,7 @@ const state = {
     popup:null,
     snackbars:[],
     w3:null,
+    ws:null,
 
     terms:'',
 };

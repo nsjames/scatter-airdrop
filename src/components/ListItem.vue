@@ -1,10 +1,6 @@
 <template>
     <section>
-        <section class="list-item" :class="{'open':open}" @click="opened">
-
-            <figure class="hex-image" v-if="binaryImage">
-                <img :src="binaryImage" />
-            </figure>
+        <section class="list-item" :class="{'open':open, 'sold':disabled}" @click="opened">
 
             <!-- RESERVATION ITEM -->
             <section class="container" v-if="reservation">
@@ -20,21 +16,17 @@
                 <!-- BID INFO -->
                 <section class="bid-info">
                     <section class="kv">
-                        <figure class="key">{{reservation.topPrice}}</figure>
-                        <figure class="value">EOS</figure>
+                        <figure class="key">{{reservation.topPrice | price}}</figure>
+                        <figure class="value">ETH</figure>
                     </section>
                     <section class="kv">
                         <figure class="key">{{reservation.openBids}}</figure>
                         <figure class="value">BIDS</figure>
                     </section>
                     <section class="kv">
-                        <figure class="key">PREVIOUSLY {{reservation.lastSoldFor | price}}</figure>
-                        <figure class="value">EOS</figure>
-                    </section>
-                    <section class="kv">
                         <figure class="key">RESERVED</figure>
                         <figure class="value open-sans" style="text-transform: uppercase">
-                            {{reservation.timestamp | moment("from", "now")}}
+                            {{reservation.timestamp/1000 | moment("from", "now")}}
                         </figure>
                     </section>
                 </section>
@@ -51,7 +43,7 @@
 
                 <!-- NAME -->
                 <section class="name-container">
-                    <figure class="name"><span class="open-sans">{{bid.price | price}}</span> <b>EOS</b></figure>
+                    <figure class="name"><span class="open-sans">{{bid.price | price}}</span> <b>ETH</b></figure>
                 </section>
 
                 <!-- BID INFO -->
@@ -59,19 +51,11 @@
                     <section class="kv" style="color:#fff;">
                         <figure class="key">{{bid.reservation.name}}</figure>
                     </section>
-                    <!--<section class="kv">-->
-                        <!--<figure class="key">ENDING</figure>-->
-                        <!--<figure class="value open-sans" style="text-transform: uppercase">{{new Date(bid.timestamp).setDate(new Date(bid.timestamp).getDate() + 2)/1000 | moment("from", "now")}}</figure>-->
-                    <!--</section>-->
-                    <!--<section class="kv">-->
-                    <!--<figure class="key">SOLD</figure>-->
-                    <!--<figure class="value">HERE</figure>-->
-                    <!--</section>-->
                 </section>
 
                 <!-- BID ACTIONS -->
                 <section class="actions">
-                    <action-button text="UNBID" @click.native="submitUnBid"></action-button>
+                    <action-button v-if="twoDaysSince(bid)" text="UNBID" @click.native="submitUnBid(bid)"></action-button>
                     <action-button text="VIEW" @click.native="viewReservation"></action-button>
                 </section>
 
@@ -96,7 +80,7 @@
                     <section class="bid" v-for="(b, index) in bids">
                         <!-- NAME -->
                         <section class="name-container">
-                            <figure class="name"><span class="open-sans">{{b.price | price}}</span> <b>EOS</b></figure>
+                            <figure class="name"><span class="open-sans">{{b.price | price}}</span> <b>ETH</b></figure>
                         </section>
 
                         <!-- BID INFO -->
@@ -105,14 +89,6 @@
                                 <figure class="key">POSTED</figure>
                                 <figure class="value open-sans" style="text-transform: uppercase">{{b.timestamp/1000 | moment("from", "now")}}</figure>
                             </section>
-                            <!--<section class="kv" v-if="index === 0">-->
-                                <!--<figure class="key">ENDING</figure>-->
-                                <!--<figure class="value open-sans" style="text-transform: uppercase">{{new Date(b.timestamp).setDate(new Date(b.timestamp).getDate() + 2)/1000 | moment("from", "now")}}</figure>-->
-                            <!--</section>-->
-                            <!--<section class="kv">-->
-                            <!--<figure class="key">SOLD</figure>-->
-                            <!--<figure class="value">HERE</figure>-->
-                            <!--</section>-->
                         </section>
 
                         <!-- BID ACTIONS -->
@@ -121,10 +97,10 @@
                                 <action-button text="OUTBID" @click.native="submitBid"></action-button>
                             </section>
                             <section class="actions" v-if="!isOwner() && isBidOwner(b)">
-                                <action-button text="UNBID" @click.native="submitUnBid"></action-button>
+                                <action-button v-if="twoDaysSince(b) && b.trx !== reservation.trx" text="UNBID" @click.native="submitUnBid(b)"></action-button>
                             </section>
                             <section class="actions" v-if="isOwner()">
-                                <action-button text="UNBID" @click.native="submitSale"></action-button>
+                                <action-button v-if="!disabled && b.trx !== reservation.trx" text="SELL" @click.native="submitSale(b)"></action-button>
                             </section>
                         </section>
                     </section>
@@ -143,21 +119,23 @@
     import PopupModel from '../models/PopupModel'
     import BidModel from '../models/BidModel'
     import CachingService from '../services/CachingService'
-
-    var QRCode = require('qrcode')
+    import ContractService from '../services/ContractService'
 
     export default {
         data(){ return {
             fetched:false,
             bids:[],
             binaryImage:null,
+            bidTimeout:null,
         }},
         computed: {
             ...mapGetters([
-               'ethAddress'
+                'ethAddress',
+                'mmaddr',
+                'scatterContract'
             ]),
             ...mapState([
-
+                'w3'
             ])
         },
         mounted(){
@@ -166,12 +144,6 @@
                     this.bids = this.injectedBids;
                     this.fetched = true;
                 }
-
-//                const sample = `${this.reservation.name}`;// | ${this.reservation.genetics.join('')} | ${this.reservation.publicKey}
-//                QRCode.toDataURL(sample, (err, url) => {
-//                    console.log(url);
-//                    this.binaryImage = url;
-//                })
             }, 10)
         },
         methods: {
@@ -188,20 +160,52 @@
                 if(this.disabled) return false;
                 const highestBidEthereumKey = this.bids.length ? this.bids[0].eth : '';
                 this[Actions.SET_POPUP](PopupModel.bid(this.reservation, highestBidEthereumKey), res => {
-                    console.log('bid popup', res);
+                    console.log('bid?', res);
+                    this.opened();
+//                    this.open = false;
                 });
             },
-            submitUnBid(){
+            submitUnBid(bid){
                 if(this.disabled) return false;
                 console.log('unbidding')
             },
-            submitSale(){
+            submitSale(bid){
                 if(this.disabled) return false;
-                console.log('selling')
+                ContractService.sell(this, this.reservation, bid).then(sold => {
+                    if(sold && sold.hasOwnProperty('transactionHash'))
+                        this.$emit('sold')
+
+                })
             },
             viewReservation(){
                 if(this.disabled) return false;
                 this[Actions.SET_SEARCH_TERMS](this.bid.reservation.name);
+
+                window.scrollBy({
+                    top: document.getElementById('searchbar').getBoundingClientRect().top-50,
+                    behavior: "smooth"
+                });
+            },
+            loadBids(){
+                if(!this.open){
+                    this.bidTimeout = null;
+                    return false;
+                }
+                CachingService.bids(this.reservation.id)
+                    .then(rows => {
+                        this.bids = rows.map(BidModel.fromJson);
+                        this.fetched = true;
+                        this.bidTimeout = setTimeout(() => this.loadBids(), 2000);
+                    })
+                    .catch(err => {
+                        this.bids = [];
+                        this.fetched = true;
+                        this.bidTimeout = setTimeout(() => this.loadBids(), 2000);
+                    })
+            },
+            twoDaysSince(bid){
+                const days = bid.timestamp + (1000 * 60 * 60 * 24 * 2);
+                return +new Date() > days
             },
             ...mapActions([
                 Actions.SET_POPUP,
@@ -210,17 +214,7 @@
         },
         props:['open', 'reservation', 'bid', 'injectedBids', 'disabled'],
         watch:{
-            open(isOpen){
-                if(isOpen) CachingService.bids(this.reservation.id)
-                    .then(rows => {
-                        this.bids = rows.map(BidModel.fromJson);
-                        this.fetched = true;
-                    })
-                    .catch(err => {
-                        this.bids = [];
-                        this.fetched = true;
-                    })
-            }
+            open(isOpen){ if(isOpen) this.loadBids(); }
         }
     }
 </script>
@@ -236,6 +230,10 @@
         width:100%;
         margin-bottom:10px;
         position: relative;
+
+        &.sold {
+            border:1px solid red;
+        }
 
         .hex-image {
             height:60px;

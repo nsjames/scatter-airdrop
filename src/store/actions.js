@@ -1,6 +1,7 @@
 import * as Actions from './constants'
 
 export const actions = {
+    [Actions.SET_WS]:({commit}, ws) => commit(Actions.SET_WS, ws),
     [Actions.SET_WEB3]:({commit}, w3) => commit(Actions.SET_WEB3, w3),
     [Actions.SET_EOS_CONTRACT]:({commit}, c) => commit(Actions.SET_EOS_CONTRACT, c),
     [Actions.SET_SCATTER_CONTRACT]:({commit}, c) => commit(Actions.SET_SCATTER_CONTRACT, c),

@@ -18,6 +18,7 @@ export default class ReservationModel {
         this.lastSoldFor = 0;
         this.eth = '';
         this.trx = '';
+        this.locked = false;
     }
 
     static fromJson(json){ return Object.assign(new ReservationModel(), json) }

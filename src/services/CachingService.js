@@ -1,13 +1,14 @@
 import axios from 'axios';
 import ReservationModel from '../models/ReservationModel'
 import BidModel from '../models/BidModel'
+import {prep} from '../util/sockets'
 
 const baseURL = process.env.CACHER_URI;
 const http = axios.create({baseURL});
 
 export default class CachingService {
 
-    static cacheNewReservation(reservation){
+    static cacheNewReservationPrivateData(reservation){
         return new Promise((resolve, reject) => {
             http.post('reservation', reservation).then(done => {
                 console.log('cacheNewReservation',done);
@@ -42,10 +43,9 @@ export default class CachingService {
 
     static bid(bid){
         return new Promise((resolve, reject) => {
-            http.post('bid', bid).then(done => {
-                console.log('bid',done);
-                resolve(true);
-            }).catch(err => console.error(err))
+            http.post('bid', bid)
+                .then(done => resolve(true))
+                .catch(err => console.error(err))
         })
     }
 
@@ -57,11 +57,29 @@ export default class CachingService {
         })
     }
 
-    static getOpenBidsByEthKey(ethkey){
+    static getOpenBidsByEthKey(ethkey, bidState){
         return new Promise((resolve, reject) => {
-            http.get(`bids/open/${ethkey}`)
+            http.get(`bids/open/${ethkey}?state=${bidState}`)
                 .then(result => resolve(result.data.bids.map(BidModel.fromJson)))
                 .catch(err => resolve([]))
+        })
+    }
+
+    static sell(ethkey, reservationId){
+        return new Promise((resolve, reject) => {
+            console.log(ethkey, reservationId);
+            http.post(`reservations/sell`, {ethkey, reservationId})
+                .then(result => resolve(result.data.sold))
+                .catch(err => resolve(false))
+        })
+    }
+
+    static unsell(ethkey, reservationId){
+        return new Promise((resolve, reject) => {
+            console.log(ethkey, reservationId);
+            http.post(`reservations/sell/revert`, {ethkey, reservationId})
+                .then(result => resolve(result.data.sold))
+                .catch(err => resolve(false))
         })
     }
 

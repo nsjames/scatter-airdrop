@@ -18,7 +18,8 @@
     "vue-moment": "^3.2.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "web3": "^1.0.0-beta.30"
+    "web3": "^1.0.0-beta.30",
+    "ws": "^5.0.0"
   },
   "devDependencies": {
     "axios": "^0.18.0",

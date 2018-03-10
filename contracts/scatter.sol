@@ -21,7 +21,7 @@ contract ScatterReservation {
 
     // STATE VARIABLES
     // ---------------------------------
-    address constant EOS = 0xb2b981a066e7dc7ec84e031de79f1636859e5af9;
+    address EOS = 0xe4c88109389de19f0db83f422f341f9e1be22925;
     uint constant bidTimeout = 2 days;
 
     address public owner;
@@ -47,7 +47,7 @@ contract ScatterReservation {
     function ScatterReservation() public {
         owner = msg.sender;
         atomicResId = 0;
-        reservationPrice = 1;
+        reservationPrice = 1000000000000000000;
     }
 
 
@@ -70,21 +70,39 @@ contract ScatterReservation {
     event EmitBid(uint reservationId);
     event EmitUnBid(uint reservationId);
     event EmitSell(uint reservationId);
+    event EmitError(string msg);
 
-    // VIEW STATE
+    // READ
     // ---------------------------------
+    function currentId() public constant returns (uint) {
+        return atomicResId;
+    }
+
     function exists(bytes24 name) public constant returns (bool) {
         return names[name] > 0 || pendingNames[name] > 0;
+    }
+
+    function reservationOwner(uint rId) public constant returns (address) {
+        return reservers[rId];
+    }
+
+    function bidOwner(uint rId) public constant returns (address) {
+        return bidders[rId];
     }
 
     function getGenetics(uint rId) public constant returns (bytes1[]) {
         return genetics[rId];
     }
 
-    // CHANGE STATE
+
+    // WRITE
     // ---------------------------------
     function setSignatory(address _signatory) public only(owner) {
         signatory = _signatory;
+    }
+
+    function setEOSAddress(address _address) public only(owner) {
+        EOS = _address;
     }
 
     function setReservationPrice(uint _price) public only(owner) {
@@ -95,9 +113,10 @@ contract ScatterReservation {
      * Reserves a User Identity
      * */
     function reserveUser(bytes24 name, bytes pkey) public returns (uint) {
+        require(name != 0x0);
         require(!exists(name));
         require(validReservation(name,pkey));
-        require(chargeEOS(reservationPrice));
+        require(takeEOS(reservationPrice));
         atomicResId++;
 
         names[name] = atomicResId;
@@ -115,9 +134,10 @@ contract ScatterReservation {
     function reserveDapp(bytes24 name, bytes pkey) public returns (uint) {
         require(pendingNames[name] == 0);
         require(validReservation(name,pkey));
-        require(chargeEOS(reservationPrice));
+        require(takeEOS(reservationPrice));
         atomicResId++;
 
+        pendingNames[name] = atomicResId;
         reservers[atomicResId] = msg.sender;
         pendingReservations[atomicResId] = Reservation(atomicResId, 1, name, pkey);
         EmitPendingReservation(atomicResId);
@@ -134,7 +154,7 @@ contract ScatterReservation {
         if(accepted) {
             // Return funds to possible user owner
             if(names[r.name] > 0 && lastSoldFor[id] > 0)
-                payEOS(reservers[names[r.name]], lastSoldFor[id]);
+                giveEOS(reservers[names[r.name]], lastSoldFor[id]);
 
             lastSoldFor[id] = reservationPrice;
             reservations[id] = r;
@@ -142,26 +162,30 @@ contract ScatterReservation {
 
         }
 
+        delete pendingNames[r.name];
         delete pendingReservations[id];
         EmitDappDecision(id);
     }
 
+    /***
+    * Bids on a reservation.
+    */
     function bid(uint rId, uint price, bytes pkey) public returns (uint) {
-        assert(reservations[rId].id > 0);
-        assert(validPkey(pkey));
         assert(reservers[rId] != msg.sender);
-
-        //TODO: Disallow same private key voting
-        //require(bids[rId].publicKey != pkey);
+        require(reservations[rId].id > 0);
+        require(validPkey(pkey));
+        require(!equalBytes(reservations[rId].publicKey, pkey));
+        require(lastSoldFor[rId] < price);
+        require(bids[rId].price < price);
 
         // Taking bid price in EOS
-        require(chargeEOS(price));
+        require(takeEOS(price));
 
         // Returning previous bid if existing
         Bid storage b = bids[rId];
         if(b.reservationId > 0){
             require(b.price < price);
-            payEOS(bidders[rId], b.price);
+            giveEOS(bidders[rId], b.price);
         }
 
         bidders[rId] = msg.sender;
@@ -170,13 +194,16 @@ contract ScatterReservation {
         return rId;
     }
 
+    /***
+    * Unbids on a stale reservation
+    */
     function unBid(uint rId) public {
         assert(bidders[rId] == msg.sender);
-        assert(bids[rId].reservationId > 0);
-        //require(bids[rId].timestamp >= now + bidTimeout);
+        require(bids[rId].reservationId > 0);
+        require(bids[rId].timestamp >= now + bidTimeout);
 
         // Returning funds
-        payEOS(bidders[rId], bids[rId].price);
+        giveEOS(bidders[rId], bids[rId].price);
 
         // Removing bid
         delete bids[rId];
@@ -186,14 +213,14 @@ contract ScatterReservation {
     }
 
     function sell(uint rId) public {
+        assert(reservers[rId] == msg.sender);
         require(reservations[rId].id > 0);
         require(bidders[rId] > 0);
         require(bids[rId].price > 0);
-        assert(reservers[rId] == msg.sender);
 
         // Moving EOS funds
-        require(chargeEOS(bids[rId].price));
-        require(payEOS(bidders[rId], bids[rId].price)); //  - bids[rId].price*0.01 (1% tax)
+        require(takeEOS(bids[rId].price));
+        require(giveEOS(bidders[rId], bids[rId].price)); //  - bids[rId].price*0.01 (1% tax)
 
         // Changing ownership
         reservations[rId].publicKey = bids[rId].publicKey;
@@ -215,10 +242,9 @@ contract ScatterReservation {
 
 
 
-    // EOS FUNCTIONS
+    // EOS
     // ---------------------------------
-    function chargeEOS(uint price) internal returns(bool) {
-        return true;
+    function takeEOS(uint price) internal returns(bool) {
         require(price <= ERC20(EOS).allowance(msg.sender, this));
         if(!ERC20(EOS).transferFrom(msg.sender, this, price)){
             revert();
@@ -227,9 +253,8 @@ contract ScatterReservation {
         return true;
     }
 
-    function payEOS(address to, uint price) internal returns(bool) {
-        return true;
-        if(!ERC20(EOS).transferFrom(this, to, price)){
+    function giveEOS(address to, uint price) internal returns(bool) {
+        if(!ERC20(EOS).transfer(to, price)){
             revert();
             return false;
         }
@@ -251,11 +276,8 @@ contract ScatterReservation {
         return true;
     }
 
-    function initializeGenetics(bytes24 name, bytes pkey) internal view returns(bytes1){
-        // bytes1[] memory genes = new bytes1[](1);
-        // genes[0] = gene(name,pkey);
-        // return genes;
-        return gene(name,pkey);
+    function equalBytes(bytes a, bytes b) internal pure returns (bool) {
+        return keccak256(a) == keccak256(b);
     }
 
     function gene(bytes24 name, bytes pkey) internal view returns(bytes1) {
@@ -277,13 +299,13 @@ contract ScatterReservation {
 }
 
 contract ERC20 {
-    function totalSupply() constant returns (uint supply);
-    function balanceOf( address who ) constant returns (uint value);
-    function allowance( address owner, address spender ) constant returns (uint _allowance);
+    function totalSupply() public constant returns (uint supply);
+    function balanceOf( address who ) public constant returns (uint value);
+    function allowance( address owner, address spender ) public constant returns (uint _allowance);
 
-    function transfer( address to, uint value) returns (bool ok);
-    function transferFrom( address from, address to, uint value) returns (bool ok);
-    function approve( address spender, uint value ) returns (bool ok);
+    function transfer( address to, uint value) public returns (bool ok);
+    function transferFrom( address from, address to, uint value) public returns (bool ok);
+    function approve( address spender, uint value ) public returns (bool ok);
 
     event Transfer( address indexed from, address indexed to, uint value);
     event Approval( address indexed owner, address indexed spender, uint value);

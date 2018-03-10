@@ -4,6 +4,9 @@ import * as Actions from './store/constants'
 import {RouteNames} from './vue/Routing'
 import config from './util/config';
 
+import ContractService from './services/ContractService'
+import CachingService from './services/CachingService'
+
 import ViewBase from './views/Base.vue'
 import Popup from './views/Popup.vue'
 import Snackbars from './views/Snackbars.vue'
@@ -21,8 +24,7 @@ import Bid from './popups/Bid.vue'
 
 import Web3 from 'web3';
 
-const isLive = process.env.LIVE === 'true' ? true : false;
-console.log('isLive', isLive);
+const isLive = process.env.LIVE === 'true';
 
 class App {
 
@@ -45,7 +47,6 @@ class App {
         ];
 
         const middleware = (to, next, store) => {
-            console.log('isLive', isLive);
             if(!isLive && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
             else if(isLive && to.name === RouteNames.LANDING) next({name:RouteNames.INDEX});
             else next();

@@ -15,15 +15,15 @@
             <br>
             The key pair generated using this popup is never sent to any back end server,
             or recorded into any Scatter database. Feel free to read through the code yourself
-            and make sure that no shenanigans are happening behind the scene.
+            and make sure that no shenanigans are happening behind the scenes.
         </p>
         <hr>
         <p>
             <span class="white">
-                Once you click the button below the public key will automatically be inserted into
-                the Identity Name Reservation input field and the private key will be copied to your
-                clipboard. Make sure you paste it somewhere and save it for later
-                <u><b>or you wil not be able to claim your Identity Name on the EOS mainnet!</b></u>
+                Once you click the button below, the public key will automatically be inserted into
+                the Identity Name Reservation input field and the private key will <span style="color:yellow;">be copied to your
+                clipboard</span>. Make sure you paste it somewhere and save it for later
+                <u><b>or you will not be able to claim your Identity Name on the EOS mainnet!</b></u>
             </span>
         </p>
 

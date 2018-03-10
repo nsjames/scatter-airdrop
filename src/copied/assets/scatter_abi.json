@@ -3,118 +3,11 @@
     "constant": true,
     "inputs": [
       {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "lastSoldFor",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "bids",
-    "outputs": [
-      {
-        "name": "reservationId",
-        "type": "uint256"
-      },
-      {
-        "name": "publicKey",
-        "type": "bytes"
-      },
-      {
-        "name": "price",
-        "type": "uint256"
-      },
-      {
-        "name": "timestamp",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "reservers",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "name",
-        "type": "bytes24"
-      }
-    ],
-    "name": "exists",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
         "name": "rId",
         "type": "uint256"
       }
     ],
-    "name": "genetics",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes1[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "bidders",
+    "name": "reservationOwner",
     "outputs": [
       {
         "name": "",
@@ -124,174 +17,6 @@
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "reservationPrice",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "pendingReservations",
-    "outputs": [
-      {
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "name": "entityType",
-        "type": "bytes1"
-      },
-      {
-        "name": "name",
-        "type": "bytes24"
-      },
-      {
-        "name": "publicKey",
-        "type": "bytes"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "bytes24"
-      }
-    ],
-    "name": "pendingNames",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "bytes24"
-      }
-    ],
-    "name": "names",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "atomicResId",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "signatory",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "reservations",
-    "outputs": [
-      {
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "name": "entityType",
-        "type": "bytes1"
-      },
-      {
-        "name": "name",
-        "type": "bytes24"
-      },
-      {
-        "name": "publicKey",
-        "type": "bytes"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "reservationId",
-        "type": "uint256"
-      }
-    ],
-    "name": "EmitBid",
-    "type": "event"
   },
   {
     "constant": false,
@@ -311,27 +36,29 @@
     "constant": false,
     "inputs": [
       {
-        "name": "rId",
-        "type": "uint256"
+        "name": "name",
+        "type": "bytes24"
       }
     ],
-    "name": "unBid",
+    "name": "forceReservedName",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": false,
     "inputs": [
       {
-        "indexed": false,
-        "name": "reservationId",
+        "name": "timeout",
         "type": "uint256"
       }
     ],
-    "name": "EmitUnBid",
-    "type": "event"
+    "name": "setBidTimeout",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "constant": false,
@@ -345,13 +72,8 @@
         "type": "bytes"
       }
     ],
-    "name": "reserveDapp",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "name": "reserveUser",
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -375,52 +97,101 @@
     "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": true,
     "inputs": [
       {
-        "indexed": false,
-        "name": "reservationId",
+        "name": "rId",
         "type": "uint256"
       }
     ],
-    "name": "EmitDappDecision",
-    "type": "event"
+    "name": "bidOwner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": false,
     "inputs": [
       {
-        "indexed": false,
-        "name": "reservationId",
-        "type": "uint256"
+        "name": "_launched",
+        "type": "bool"
       }
     ],
-    "name": "EmitPendingReservation",
-    "type": "event"
+    "name": "setChainLaunched",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": false,
     "inputs": [
       {
-        "indexed": false,
-        "name": "reservationId",
+        "name": "_price",
         "type": "uint256"
       }
     ],
-    "name": "EmitReservation",
-    "type": "event"
+    "name": "setReservationPrice",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": false,
     "inputs": [
       {
-        "indexed": false,
-        "name": "reservationId",
+        "name": "name",
+        "type": "bytes24"
+      },
+      {
+        "name": "pkey",
+        "type": "bytes"
+      }
+    ],
+    "name": "reserveDapp",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "currentId",
+    "outputs": [
+      {
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "EmitSell",
-    "type": "event"
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "rId",
+        "type": "uint256"
+      },
+      {
+        "name": "pkey",
+        "type": "bytes"
+      }
+    ],
+    "name": "bid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
   },
   {
     "constant": false,
@@ -440,21 +211,12 @@
     "constant": false,
     "inputs": [
       {
-        "name": "name",
-        "type": "bytes24"
-      },
-      {
-        "name": "pkey",
-        "type": "bytes"
-      }
-    ],
-    "name": "reserveUser",
-    "outputs": [
-      {
-        "name": "",
+        "name": "rId",
         "type": "uint256"
       }
     ],
+    "name": "unBid",
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -463,47 +225,196 @@
     "constant": false,
     "inputs": [
       {
-        "name": "rId",
-        "type": "uint256"
-      },
-      {
-        "name": "price",
-        "type": "uint256"
-      },
-      {
-        "name": "pkey",
-        "type": "bytes"
+        "name": "_address",
+        "type": "address"
       }
     ],
-    "name": "bid",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "name": "setEOSAddress",
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [],
+    "constant": true,
+    "inputs": [
+      {
+        "name": "name",
+        "type": "bytes24"
+      }
+    ],
+    "name": "exists",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_eos",
+        "type": "address"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
-    "constant": false,
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
+    "anonymous": false,
     "inputs": [
       {
-        "name": "_price",
+        "indexed": false,
+        "name": "reservationId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "bytes24"
+      },
+      {
+        "indexed": false,
+        "name": "pkey",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "name": "eth",
+        "type": "address"
       }
     ],
-    "name": "setReservationPrice",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "EmitReservation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "reservationId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "bytes24"
+      },
+      {
+        "indexed": false,
+        "name": "pkey",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "name": "eth",
+        "type": "address"
+      }
+    ],
+    "name": "EmitPendingReservation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "reservationId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "accepted",
+        "type": "bool"
+      }
+    ],
+    "name": "EmitDappDecision",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "reservationId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "pkey",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "eth",
+        "type": "address"
+      }
+    ],
+    "name": "EmitBid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "reservationId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "bidder",
+        "type": "address"
+      }
+    ],
+    "name": "EmitUnBid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "reservationId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "pkey",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "name": "eth",
+        "type": "address"
+      }
+    ],
+    "name": "EmitSell",
+    "type": "event"
   }
 ]

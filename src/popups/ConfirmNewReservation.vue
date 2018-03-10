@@ -54,6 +54,7 @@
     import ecc from 'eosjs-ecc'
     import Snackbar from '../models/SnackbarModel'
     import ContractService from '../services/ContractService'
+    import {validEmail} from '../util/email';
 
     export default {
         data(){ return {
@@ -76,10 +77,6 @@
         },
         methods: {
             submitReservation(){
-                const validEmail = email => {
-                    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    return regex.test(String(email).toLowerCase());
-                };
 
                 if((this.newReservation.type === RESERVATION_TYPES.DAPP || this.newReservation.email.trim().length) && !validEmail(this.newReservation.email)){
                     this[Actions.PUSH_SNACKBAR](new Snackbar(

@@ -120,9 +120,52 @@
             </section>
 
 
+
+            <section v-if="w3">
+                <!-- MY RESERVATIONS -->
+                <section class="list">
+                    <section class="head">
+                        <h1>Reservations</h1>
+                    </section>
+                    <figure v-for="r in myReservations">
+                        <list-item :disabled="r.locked" hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = true;" v-on:opened="setSelection(r)"></list-item>
+                    </figure>
+                    <section v-if="!myReservations.length">
+                        <figure class="bounding-box">
+                            <p style="color:#fff;">
+                                You don't have any reservations yet.
+                            </p>
+                        </figure>
+                    </section>
+                </section>
+
+                <!-- MY BIDS -->
+                <section class="list">
+                    <section class="head">
+                        <h1>Bids</h1>
+                        <section class="filters">
+                            <figure class="filter"
+                                    :class="{'active':selectedBidState === state}"
+                                    v-for="state in bidStates" @click="changeBidState(state)">{{state === bidStates.TOP ? 'Open' : state}}</figure>
+                        </section>
+                    </section>
+                    <figure v-for="b in myOpenBids">
+                        <list-item :bid="b"></list-item>
+                    </figure>
+                    <section v-if="!myOpenBids.length">
+                        <figure class="bounding-box">
+                            <p style="color:#fff;">
+                                You don't have any {{selectedBidState}} bids yet.
+                            </p>
+                        </figure>
+                    </section>
+                </section>
+            </section>
+
+
+
             <!-- META -->
             <section class="meta">
-
                 <section class="circle">
                     <h1>2,241</h1>
                     <h2>Identities Reserved</h2>
@@ -137,48 +180,27 @@
             </section>
 
 
-            <!-- MY RESERVATIONS -->
-            <section class="list" v-if="myReservations.length">
-                <section class="head">
-                    <h1>Reservations</h1>
-                </section>
-                <figure v-for="r in myReservations">
-                    <list-item hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:opened="setSelection(r)"></list-item>
-                </figure>
-            </section>
-
-            <!-- MY BIDS -->
-            <section class="list" v-if="myOpenBids.length">
-                <section class="head">
-                    <h1>Bids</h1>
-                    <section class="filters">
-                        <figure class="filter"
-                                :class="{'active':selectedBidState === state}"
-                                v-for="state in bidStates" @click="selectedBidState = state">{{state === bidStates.TOP ? 'Open' : state}}</figure>
-                    </section>
-                </section>
-                <figure v-for="b in myOpenBids">
-                    <list-item :bid="b"></list-item>
-                </figure>
-            </section>
-
-            <hr v-if="myOpenBids.length || myReservations.length">
-
-
             <!-- FEATURED RESERVATIONS -->
             <section class="list">
                 <section class="head">
                     <h1>Trending Bid Battles</h1>
                 </section>
                 <figure v-for="r in trendingReservations">
-                    <list-item :reservation="r" :open="selectedReservation === r.id" v-on:opened="setSelection(r)"></list-item>
+                    <list-item :disabled="r.locked" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = true;" v-on:opened="setSelection(r)"></list-item>
                 </figure>
+                <section v-if="!trendingReservations.length">
+                    <figure class="bounding-box">
+                        <p style="color:#fff;">
+                            There are no trending bid battles right now.
+                        </p>
+                    </figure>
+                </section>
             </section>
 
             <!-- FILTERABLE RESERVATIONS -->
             <section class="list">
                 <section class="head">
-                    <figure class="search">
+                    <figure class="search" id="searchbar">
                         <input placeholder="Search" :value="searchTerms" @input="forwardSearchTerms" />
                     </figure>
                     <section class="filters">
@@ -188,9 +210,15 @@
                     </section>
                 </section>
                 <figure v-for="r in reservations">
-                    <list-item :reservation="r" :open="selectedReservation === r.id" v-on:opened="setSelection(r)"></list-item>
+                    <list-item :disabled="r.locked" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = true;" v-on:opened="setSelection(r)"></list-item>
                 </figure>
-                <!--<list-item></list-item>-->
+                <section v-if="!reservations.length">
+                    <figure class="bounding-box">
+                        <p style="color:#fff;">
+                            There are no reservations!
+                        </p>
+                    </figure>
+                </section>
             </section>
         </section>
 
@@ -215,6 +243,7 @@
         OWNED:'owned'
     };
 
+    const timer = 10000;
     export default {
         data(){ return {
             filters:FILTERS,
@@ -239,9 +268,9 @@
         }},
         mounted(){
             this.getReservations();
-            this.getTrendingReservations();
-            console.log(this.$route.params);
-            console.log('localStorage.getItem("firstTime")', localStorage.getItem("firstTime"));
+            setTimeout(() => {
+                this.getTrendingReservations();
+            }, 1000);
         },
         computed: {
             ...mapGetters([
@@ -290,7 +319,7 @@
                     this.trendingReservationsTimeout
                 ).then(rows => {
                     this.trendingReservations = rows;
-                    this.trendingReservationsTimeout = setTimeout(() => this.getReservations(), 5000);
+                    this.trendingReservationsTimeout = setTimeout(() => this.getReservations(), timer);
                 })
             },
             getReservations(){
@@ -300,7 +329,7 @@
                     this.reservationsTimeout
                 ).then(rows => {
                     this.reservations = rows;
-                    this.reservationsTimeout = setTimeout(() => this.getReservations(), 5000);
+                    this.reservationsTimeout = setTimeout(() => this.getReservations(), timer);
                 })
             },
             getMyReservations(){
@@ -310,18 +339,22 @@
                     this.myReservationsTimeout
                 ).then(rows => {
                     this.myReservations = rows;
-                    this.myReservationsTimeout = setTimeout(() => this.getMyReservations(), 5000);
+                    this.myReservationsTimeout = setTimeout(() => this.getMyReservations(), timer);
                 })
             },
             getMyOpenBids(){
                 this.timedFetch(
                     CachingService.getOpenBidsByEthKey,
-                    [this.ethAddress],
+                    [this.ethAddress, this.selectedBidState],
                     this.myOpenBidsTimeout
                 ).then(rows => {
                     this.myOpenBids = rows;
-                    this.myOpenBidsTimeout = setTimeout(() => this.getMyOpenBids(), 5000);
+                    this.myOpenBidsTimeout = setTimeout(() => this.getMyOpenBids(), timer);
                 })
+            },
+            changeBidState(state){
+                this.selectedBidState = state;
+                this.getMyOpenBids();
             },
             ...mapActions([
                 Actions.SET_SEARCH_TERMS
