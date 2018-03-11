@@ -20,15 +20,15 @@
                     <circle-button icon="fa-plus-circle" @click.native="popupGenerateKeyPair"></circle-button>
                 </section>
 
-                <section class="switcher">
-                    <figure class="active-switch" :class="{'left':newReservation.type === reservationTypes.USER}"></figure>
-                    <figure class="switch"
-                            @click="newReservation.changeType(reservationTypes.USER)"
-                            :class="{'active':newReservation.type === reservationTypes.USER}">User</figure>
-                    <figure class="switch"
-                            @click="newReservation.changeType(reservationTypes.DAPP)"
-                            :class="{'active':newReservation.type === reservationTypes.DAPP}">Dapp</figure>
-                </section>
+                <!--<section class="switcher">-->
+                    <!--<figure class="active-switch" :class="{'left':newReservation.type === reservationTypes.USER}"></figure>-->
+                    <!--<figure class="switch"-->
+                            <!--@click="newReservation.changeType(reservationTypes.USER)"-->
+                            <!--:class="{'active':newReservation.type === reservationTypes.USER}">User</figure>-->
+                    <!--<figure class="switch"-->
+                            <!--@click="newReservation.changeType(reservationTypes.DAPP)"-->
+                            <!--:class="{'active':newReservation.type === reservationTypes.DAPP}">Dapp</figure>-->
+                <!--</section>-->
 
                 <section class="cta">
                     <rounded-button big="Reserve Identity Name" @click.native="popupConfirmNewReservation"></rounded-button>

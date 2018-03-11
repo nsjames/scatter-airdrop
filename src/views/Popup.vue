@@ -16,6 +16,8 @@
 
                         <popup-generate-key-pair v-if="popup.type === popupTypes.GENERATE_KEY_PAIR"></popup-generate-key-pair>
                         <popup-confirm-new-reservation v-if="popup.type === popupTypes.CONFIRM_NEW_RESERVATION"></popup-confirm-new-reservation>
+                        <popup-confirm-sale v-if="popup.type === popupTypes.CONFIRM_SALE"></popup-confirm-sale>
+                        <popup-confirm-unbid v-if="popup.type === popupTypes.CONFIRM_UNBID"></popup-confirm-unbid>
                         <popup-bid v-if="popup.type === popupTypes.BID"></popup-bid>
                     </section>
 
@@ -63,6 +65,7 @@
         },
         methods: {
             closePopup(){
+                this.popup.resolve(null);
                 this[Actions.SET_POPUP](null)
             },
             ...mapActions([

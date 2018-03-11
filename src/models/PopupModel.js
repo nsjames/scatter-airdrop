@@ -1,6 +1,8 @@
 export const POPUP_TYPES = {
     GENERATE_KEY_PAIR:'gkp',
     CONFIRM_NEW_RESERVATION:'cnr',
+    CONFIRM_SALE:'cs',
+    CONFIRM_UNBID:'cu',
     BID:'bid'
 };
 
@@ -25,6 +27,22 @@ export default class PopupModel {
         return new PopupModel(
             POPUP_TYPES.CONFIRM_NEW_RESERVATION,
             newReservation,
+            _resolver
+        )
+    }
+
+    static confirmSale(reservation, bid, _resolver){
+        return new PopupModel(
+            POPUP_TYPES.CONFIRM_SALE,
+            {reservation, bid},
+            _resolver
+        )
+    }
+
+    static confirmUnbid(reservation, bid, _resolver){
+        return new PopupModel(
+            POPUP_TYPES.CONFIRM_UNBID,
+            {reservation, bid},
             _resolver
         )
     }

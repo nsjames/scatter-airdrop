@@ -7,6 +7,25 @@
         "type": "uint256"
       }
     ],
+    "name": "lastPrice",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "rId",
+        "type": "uint256"
+      }
+    ],
     "name": "reservationOwner",
     "outputs": [
       {
@@ -36,20 +55,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "name",
-        "type": "bytes24"
-      }
-    ],
-    "name": "forceReservedName",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "timeout",
         "type": "uint256"
       }
@@ -64,33 +69,11 @@
     "constant": false,
     "inputs": [
       {
-        "name": "name",
-        "type": "bytes24"
-      },
-      {
-        "name": "pkey",
-        "type": "bytes"
+        "name": "_names",
+        "type": "bytes24[]"
       }
     ],
-    "name": "reserveUser",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "name": "accepted",
-        "type": "bool"
-      }
-    ],
-    "name": "dappDecision",
+    "name": "forceReservedNames",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -119,6 +102,24 @@
     "constant": false,
     "inputs": [
       {
+        "name": "name",
+        "type": "bytes24"
+      },
+      {
+        "name": "pkey",
+        "type": "bytes"
+      }
+    ],
+    "name": "reserve",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "name": "_launched",
         "type": "bool"
       }
@@ -138,24 +139,6 @@
       }
     ],
     "name": "setReservationPrice",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "name",
-        "type": "bytes24"
-      },
-      {
-        "name": "pkey",
-        "type": "bytes"
-      }
-    ],
-    "name": "reserveDapp",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -237,6 +220,20 @@
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "getSignatory",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "name",
@@ -295,50 +292,6 @@
       }
     ],
     "name": "EmitReservation",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "reservationId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "name": "name",
-        "type": "bytes24"
-      },
-      {
-        "indexed": false,
-        "name": "pkey",
-        "type": "bytes"
-      },
-      {
-        "indexed": false,
-        "name": "eth",
-        "type": "address"
-      }
-    ],
-    "name": "EmitPendingReservation",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "reservationId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "name": "accepted",
-        "type": "bool"
-      }
-    ],
-    "name": "EmitDappDecision",
     "type": "event"
   },
   {

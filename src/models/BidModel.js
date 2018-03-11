@@ -1,7 +1,8 @@
 export const BID_STATE = {
     TOP:'top',
     BEAT:'beat',
-    SOLD:'sold'
+    SOLD:'sold',
+    UNBID:'unbid'
 };
 
 export default class BidModel {

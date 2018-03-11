@@ -8,7 +8,7 @@
                 <!-- NAME -->
                 <section class="name-container">
                     <figure class="name">{{reservation.name}}</figure>
-                    <figure class="modifiers">
+                    <figure class="modifiers" :class="{'full':reservation.genetics.length ===5}">
                         <modifier :text="gene" v-for="(gene, i) in reservation.genetics" :key="i"></modifier>
                     </figure>
                 </section>
@@ -33,6 +33,7 @@
 
                 <!-- BID ACTIONS -->
                 <section class="actions" v-if="!isOwner()">
+                    <action-button text="ID" @click.native="viewIdentity"></action-button>
                     <action-button text="BID" :active="open"></action-button>
                 </section>
 
@@ -55,7 +56,7 @@
 
                 <!-- BID ACTIONS -->
                 <section class="actions">
-                    <action-button v-if="twoDaysSince(bid)" text="UNBID" @click.native="submitUnBid(bid)"></action-button>
+                    <action-button v-if="bid.state !== bidStates.UNBID && twoDaysSince(bid)" text="UNBID" @click.native="submitUnBid(bid)"></action-button>
                     <action-button text="VIEW" @click.native="viewReservation"></action-button>
                 </section>
 
@@ -77,10 +78,13 @@
                 </section>
 
                 <section v-else>
-                    <section class="bid" v-for="(b, index) in bids">
+                    <section class="bid" :class="{'red':b.state === bidStates.UNBID}" v-for="(b, index) in bids">
                         <!-- NAME -->
                         <section class="name-container">
-                            <figure class="name"><span class="open-sans">{{b.price | price}}</span> <b>ETH</b></figure>
+                            <figure class="name">
+                                <span class="open-sans">{{b.price | price}}</span> <b>ETH</b>
+                                <span v-if="b.state === bidStates.UNBID">( RETRACTED )</span>
+                            </figure>
                         </section>
 
                         <!-- BID INFO -->
@@ -97,10 +101,11 @@
                                 <action-button text="OUTBID" @click.native="submitBid"></action-button>
                             </section>
                             <section class="actions" v-if="!isOwner() && isBidOwner(b)">
-                                <action-button v-if="twoDaysSince(b) && b.trx !== reservation.trx" text="UNBID" @click.native="submitUnBid(b)"></action-button>
+                                <action-button v-if="b.state !== bidStates.UNBID && twoDaysSince(b) && b.trx !== reservation.trx" text="UNBID" @click.native="submitUnBid(b)"></action-button>
+                                <action-button v-if="b.state === bidStates.UNBID" text="OUTBID" @click.native="submitBid"></action-button>
                             </section>
                             <section class="actions" v-if="isOwner()">
-                                <action-button v-if="!disabled && b.trx !== reservation.trx" text="SELL" @click.native="submitSale(b)"></action-button>
+                                <action-button v-if="b.state !== bidStates.UNBID && !disabled && b.trx !== reservation.trx" text="SELL" @click.native="submitSale(b)"></action-button>
                             </section>
                         </section>
                     </section>
@@ -118,11 +123,16 @@
 
     import PopupModel from '../models/PopupModel'
     import BidModel from '../models/BidModel'
+    import {BID_STATE} from '../models/BidModel'
     import CachingService from '../services/CachingService'
     import ContractService from '../services/ContractService'
+    import {RESERVATION_TYPES} from '../models/ReservationModel';
+    import Snackbar from '../models/SnackbarModel';
 
     export default {
         data(){ return {
+            bidStates:BID_STATE,
+            reservationTypes:RESERVATION_TYPES,
             fetched:false,
             bids:[],
             binaryImage:null,
@@ -147,6 +157,9 @@
             }, 10)
         },
         methods: {
+            viewIdentity(){
+                this.$router.push('/identity/'+this.reservation.name)
+            },
             opened(){
                 this.$emit('opened');
             },
@@ -158,24 +171,26 @@
             },
             submitBid(){
                 if(this.disabled) return false;
-                const highestBidEthereumKey = this.bids.length ? this.bids[0].eth : '';
+                const highestBidEthereumKey = this.bids.length ? this.bids[0].state === BID_STATE.UNBID ? '' : this.bids[0].eth : '';
                 this[Actions.SET_POPUP](PopupModel.bid(this.reservation, highestBidEthereumKey), res => {
-                    console.log('bid?', res);
                     this.opened();
-//                    this.open = false;
                 });
             },
             submitUnBid(bid){
                 if(this.disabled) return false;
-                console.log('unbidding')
+                this[Actions.SET_POPUP](PopupModel.confirmUnbid(this.reservation, bid), res => {
+                    if(res) this.opened();
+                    else this[Actions.PUSH_SNACKBAR](new Snackbar(`
+                        An error occured while retracting this bid. This could be due to the reservation being primed for sale.
+                    `));
+                });
             },
             submitSale(bid){
                 if(this.disabled) return false;
-                ContractService.sell(this, this.reservation, bid).then(sold => {
-                    if(sold && sold.hasOwnProperty('transactionHash'))
-                        this.$emit('sold')
+                this[Actions.SET_POPUP](PopupModel.confirmSale(this.reservation, bid, sold => {
+                    if(sold) this.$emit('sold');
+                }));
 
-                })
             },
             viewReservation(){
                 if(this.disabled) return false;
@@ -209,7 +224,8 @@
             },
             ...mapActions([
                 Actions.SET_POPUP,
-                Actions.SET_SEARCH_TERMS
+                Actions.SET_SEARCH_TERMS,
+                Actions.PUSH_SNACKBAR
             ])
         },
         props:['open', 'reservation', 'bid', 'injectedBids', 'disabled'],
@@ -299,6 +315,12 @@
                 display:inline-block;
                 margin-left:2px;
             }
+
+            &.full {
+                .modifier {
+                    box-shadow: 0 5px 12px rgba(0,0,0,0.7),0 0 80px rgba(0,255,255,0.4),0 10px 40px rgba(255,255,0,0.15);
+                }
+            }
         }
     }
 
@@ -347,6 +369,10 @@
             width:100%;
             margin-bottom:10px;
             position: relative;
+
+            &.red {
+                background:rgba(255,0,0,0.1);
+            }
 
             .actions {
                 padding:20px;

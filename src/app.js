@@ -20,6 +20,8 @@ import ListItem from './components/ListItem.vue'
 
 import GenerateKeyPair from './popups/GenerateKeyPair.vue'
 import ConfirmNewReservation from './popups/ConfirmNewReservation.vue'
+import ConfirmSellName from './popups/ConfirmSellName.vue'
+import ConfirmUnbid from './popups/ConfirmUnbid.vue'
 import Bid from './popups/Bid.vue'
 
 import Web3 from 'web3';
@@ -43,6 +45,8 @@ class App {
             {tag:'list-item', vue:ListItem},
             {tag:'popup-generate-key-pair', vue:GenerateKeyPair},
             {tag:'popup-confirm-new-reservation', vue:ConfirmNewReservation},
+            {tag:'popup-confirm-sale', vue:ConfirmSellName},
+            {tag:'popup-confirm-unbid', vue:ConfirmUnbid},
             {tag:'popup-bid', vue:Bid},
         ];
 

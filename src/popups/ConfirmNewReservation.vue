@@ -5,8 +5,8 @@
 
 
         <section class="kv">
-            <figure class="key">TYPE</figure>
-            <figure class="value" style="text-transform:uppercase;">{{newReservation.type}}</figure>
+            <figure class="key">RESERVING</figure>
+            <figure class="value" style="text-transform:uppercase;">IDENTITY</figure>
         </section>
 
         <section class="kv">
@@ -14,28 +14,32 @@
             <figure class="value">{{newReservation.publicKey.substr(0,6)}}......{{newReservation.publicKey.slice(-5)}}</figure>
         </section>
 
+        <br><br>
+
+        <p>
+            You will get <b>two</b> MetaMask prompts. The first one will be sent to the EOS ERC20 contract and will approve
+            the Scatter Reservation contract's ability to move 1 EOS token. The second will be sent to the Scatter Reservation
+            contract and will reserve your name.
+        </p>
+
         <br>
         <br>
 
         <section class="action">
             <p>
-                <b v-if="newReservation.type === reservationTypes.USER">Get notifications about bids</b>
-                <b v-if="newReservation.type === reservationTypes.DAPP">
-                    You will need to prove ownership of this name. If you can not prove ownership you will lose both the reservation and
-                    the payment for the reservation.
-                </b>
+                <b>Get notifications about bids</b>
                 <br>
                 <i class="fa fa-arrow-down"></i>
                 <br>
                 <br>
             </p>
             <section class="input-container">
-                <input :placeholder="newReservation.type === reservationTypes.USER ? 'Enter Your Email ( optional )' : 'Enter Your Email'" v-model="newReservation.email" />
+                <input placeholder="Enter Your Email ( optional )" v-model="newReservation.email" />
             </section>
 
             <rounded-button big="Pay With MetaMask" small="The irony, we know." @click.native="submitReservation"></rounded-button>
             <p style="margin-top:10px;">
-                <b>All new Reservations cost <span class="open-sans">1</span> EOS.</b>
+                <b>All new reservations cost <span class="open-sans">1</span> EOS.</b>
             </p>
         </section>
 
@@ -93,12 +97,16 @@
                         this[Actions.PUSH_SNACKBAR](new Snackbar(
                             `Your name has been reserved!`
                         ));
+                    } else {
+                        this[Actions.PUSH_SNACKBAR](new Snackbar(
+                            `There was an error with this reservation: ${result}`
+                        ));
                     }
                 };
 
                 this.newReservation.eth = this.w3.defaultAccount;
 
-                ContractService['reserve'+this.newReservation.type](this, this.newReservation)
+                ContractService.reserve(this, this.newReservation)
                     .then(finish).catch(finish);
 
             },

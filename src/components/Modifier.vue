@@ -1,5 +1,5 @@
 <template>
-    <section class="modifier">
+    <section class="modifier" :class="{'dapp':text === 'DAPP'}">
         {{bin(text)}}
     </section>
 </template>
@@ -25,6 +25,8 @@
                     case '0x42': return 'B';
                     case '0x43': return 'C';
                     case '0x44': return 'D';
+                    case '0x00': return '?';
+                    case 'DAPP': return 'DAPP'
                 }
             },
             ...mapActions([
@@ -51,5 +53,10 @@
         font-size:9px;
         font-weight:bold;
         display:inline-block;
+
+        &.dapp {
+            width:auto;
+            padding:0 4px;
+        }
     }
 </style>

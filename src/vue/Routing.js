@@ -1,9 +1,11 @@
 import Index from '../views/Index.vue'
 import Landing from '../views/Landing.vue'
+import Reservation from '../views/Reservation.vue'
 
 export const RouteNames = {
     INDEX:'index',
     LANDING:'landing',
+    RESERVATION:'reservation'
 };
 
 const RouteViews = {
@@ -29,7 +31,12 @@ export class Routing {
     }
 
     static routes(){
-        return Object.keys(Routing.builder())
-            .map(routeName => Routing.builder()[routeName]);
+        // return Object.keys(Routing.builder())
+        //     .map(routeName => Routing.builder()[routeName]);
+        return [
+            { path: '', component: Index, name:RouteNames.INDEX },
+            { path: 'landing', component: Landing, name:RouteNames.LANDING },
+            { path: '/identity/:name', component: Reservation, name:RouteNames.RESERVATION },
+        ]
     }
 }

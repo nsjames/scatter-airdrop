@@ -22,6 +22,8 @@ const getters = {
     mmaddr:state => state.w3.defaultAccount,
     ethAddress:state => state.w3 ? state.w3.defaultAccount : '',
     searchTerms:state => state.terms,
+    sellingReservation:state => state.popup.data.reservation,
+    sellingBid:state => state.popup.data.bid,
 };
 
 export const store = new Vuex.Store({

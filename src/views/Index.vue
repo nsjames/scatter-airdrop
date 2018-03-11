@@ -18,8 +18,9 @@
 
                 <h2>Primary Airdrop</h2>
                 <p>
-                    Every EOS holder inside of the final EOS genesis snapshot will receive 40 RIDL Tokens. You do not have to reserve your name to receive the airdrop, your tokens will
-                    be provided for you when you register an Identity from Scatter using the private key linked to the public key you've registered your EOS with regardless of this reservation.
+                    Every EOS holder inside of the final EOS genesis snapshot will receive 40 RIDL Tokens. You do not have to reserve your name to receive the airdrop.
+                    You will have the ability to transfer the tokens regardless of your reservation/registration however you will not be able to use the tokens inside of RIDL
+                    without a registered Identity.
                     <br><br>
                     The tokens will not be given on the Ethereum chain, they will only be dispensed when the Identity is created on the live EOS mainnet.
                 </p>
@@ -28,24 +29,8 @@
                 <h2>Identity Name Reservation</h2>
                 <p>
                     If you want to make sure that you get the name you want at the launch of the EOS mainnet or if you simply want to take part in the name auction, you can reserve a
-                    name and claim it. Reserved names will be transferable until June 1st at which point they will be locked to the EOS public key they are tied to at the time.
-                    <br><br>
-                    <b>Applications</b> must prove their ownership of the application name via real world means in order to reserve the name due to copyright and intellectual property laws. If an
-                    application reserves a name that is already taken by a user and then verified successfully the user’s EOS will be returned to them and the application will assume ownership of the name at
-                    the base price. Application Identities are non-transferable and can not take part in the auction system. Applications always start with 0 RIDL Tokens. If an
-                    application has tokens allocated to it’s public key when it is registered they will not be given to the Application Identity, but can still be claimed by User Identities
-                    registered to the same EOS public key.
+                    name and claim it. Reserved names will be transferable until around June 1st at which point they will be locked to the EOS public key they are tied to at the time.
                 </p>
-
-                <figure class="bounding-box" style="border:1px solid yellow; box-shadow: 0 0 100px rgba(255,255,0,0.02);">
-                    <p style="margin:0;">
-                        <b style="color:yellow;">IMPORTANT!</b> Though you can technically interact directly with the Ethereum contract those reservations will not be reflected
-                        on this site and will also not be taken into account when moving the data over to the EOS chain at launch.
-                        <b>
-                            We have to do it this way because Ethereum/MetaMask does not support multi signed transactions from two senders. EOS/Scatter does.
-                        </b>
-                    </p>
-                </figure>
                 <hr>
 
                 <h2>Secondary Airdrop</h2>
@@ -62,14 +47,13 @@
                     You can bid on already reserved Identity Names and
                     if the owner selects to sell to your bid you will be transferred ownership of the name. If a new bid overthrows yours your bid will be returned to you.
                     All gas spent on bidding is non-refundable.
-
                 </p>
 
                 <figure class="bounding-box">
                     <p style="margin:0;">
-                        <b>All bids are also done in EOS.</b> The reasoning for this being that we have a feeling that this auction will break through the bubble of EOS and flow into
-                        the general cryptocurrency world. Once that happens people who do not hold EOS will have to purchase EOS to take part in the auction. Like everything
-                        Scatter does, this will help elevate the entire EOS project, it's community, and it's exposure.
+                        <b>All bids are done in ETH.</b> The reason for doing the bidding in ETH instead of EOS ERC20 tokens is to make sure that users can
+                        still re-claim their unsellable bids once the contract is locked. If we were to use EOS ERC20 tokens they would not be transferrable
+                        after June 1st and would be stuck within the Scatter Reservation contract.
                     </p>
                 </figure>
                 <hr>
@@ -89,6 +73,8 @@
                         When a name is reserved it is applied a random genetic letter.<br>
                         Every time it is sold it is applied another genetic modifier. This will happen until the genetic sequence has reached 5 letters.
                         </span>
+                        Identities registered with RIDL after the mainnet launch will not have this genetic material assigned to them upon registration.
+                        It is given exclusively for the participants of the reservation and auction. Think of it as a permanent mark of appreciation from us at Scatter.
 
                     </p>
                 </section>
@@ -96,32 +82,39 @@
 
                 <h2>What will the proceeds from the reservations go towards?</h2>
                 <p>
-                    <b>Every penny will go right back into the project and fund further development of Scatter and RIDL.</b>
-                    This includes but is not limited to hiring more developers and
-                    splitting the development teams into three, <i>Desktop, Mobile, and RIDL.</i>
-                    <br>
-                    <br>
-                    A large portion will also be put into educating developers on
+                    <b>70% will go into funding the further development of Scatter and RIDL.</b>
+                    This will include hiring more developers and splitting the development team into three teams,
+                    <i>one for Web Browsers, one for Mobile, and one <span style="text-decoration: line-through">to rule them all.</span> for RIDL.</i>
+                    <br><br>
+                    20% will be put into educating developers on
                     how to work with EOS, eosjs, Scatter, and RIDL via documentation and video/written tutorials.
+                    <br><br>
+                    The remaining 10% will be put into advertising both EOS and Scatter to raise awareness about EOS's ability to provide a scalable blockchain solution that
+                    developers can take advantage of <b>now</b> and Scatter's ability to provide a user-experience never seen before on the blockchain or otherwise.
                 </p>
                 <hr>
 
-                <h2>This is <u>NOT</u> and Initial Coin Offering</h2>
+                <h2>This is <u>NOT</u> an Initial Coin Offering</h2>
                 <p>
                     In no way is this an ICO. No tokens are being sold or even recorded on the Ethereum chain. The tokens will only be minted on the actual EOS network, and
-                    they will only be applied to the EOS public keys ( from genesis and the airdrop contract ) once that happens.
-                    The tokens currently have no price or value attached to them simply due to the fact that they do not exist on any network.
-                    <b>Any RIDL tokens on the Ethereum blockchain are <u>NOT</u> endorsed by Scatter and have nothing to do with us or this airdrop/auction.</b>
-                    The RIDL Token is a <b>utility</b> token. Though it <u>can</u> be, it is not Scatter's intention for the token to be sold and/or traded.
+                    they will only be applied to the EOS public keys ( from genesis and the reservation contract's cache ) once that happens.
+                    The tokens can have no price or value attached to them simply due to the fact that they do not exist on any network.
+                    <b>Any RIDL tokens on any network besides EOS are <u>NOT</u> ours, and have nothing to do with us or this airdrop/auction.</b>
+                    The RIDL Token is a <b>utility</b> token. Though it <u>can</u> be, it is not Scatter's intention for the token to be sold for any monetary value.
                     <br><br>
                     The only thing being sold here on this website is an actual virtual asset in the form of a reserved name for the future EOS blockchain.
-                    You may liken the reservation process to that of pre-purchasing a video game, book, or concert tickets.
+                    You may liken the reservation process to that of reserving a seat at a ball game, pre-purchasing a video game, or buying concert tickets. It is also not our intention for the
+                    Genetics to be used as a gambling mechanism. There is no difference between the letters other than that given by the community, they do not affect RIDL in any way.
                 </p>
             </section>
 
 
 
             <section v-if="w3">
+                <section v-if="isSignatory">
+
+                </section>
+
                 <!-- MY RESERVATIONS -->
                 <section class="list">
                     <section class="head">
@@ -167,7 +160,7 @@
             <!-- META -->
             <section class="meta">
                 <section class="circle">
-                    <h1>2,241</h1>
+                    <h1 class="hidden-counter" :class="{'show':totalReservations > 0}">{{totalReservations}}</h1>
                     <h2>Identities Reserved</h2>
                     <p>2,214,500+ tokens airdropped</p>
                 </section>
@@ -204,9 +197,9 @@
                         <input placeholder="Search" :value="searchTerms" @input="forwardSearchTerms" />
                     </figure>
                     <section class="filters">
-                        <figure class="filter"
-                                :class="{'active':selectedFilter === filter}"
-                                v-for="filter in filters" @click="selectedFilter = filter">{{filter}}</figure>
+                        <figure class="filter btn" @click="deltaPage(1)">NEXT</figure>
+                        <figure class="filter">{{page}}</figure>
+                        <figure class="filter btn" @click="deltaPage(-1)">BACK</figure>
                     </section>
                 </section>
                 <figure v-for="r in reservations">
@@ -235,19 +228,12 @@
     import ReservationModel from '../models/ReservationModel';
     import {RESERVATION_TYPES} from '../models/ReservationModel';
     import CachingService from '../services/CachingService'
+    import ContractService from '../services/ContractService'
     import {BID_STATE} from '../models/BidModel'
-
-    const FILTERS = {
-        USER:'user',
-        DAPP:'dapp',
-        OWNED:'owned'
-    };
 
     const timer = 10000;
     export default {
         data(){ return {
-            filters:FILTERS,
-            selectedFilter:FILTERS.USER,
             firstTime:localStorage.getItem("firstTime") === null,
 
             bidStates:BID_STATE,
@@ -255,33 +241,59 @@
 
             selectedReservation:null,
 
+            totalReservations:0,
+            page:0,
+
             reservations:[],
             trendingReservations:[],
             myReservations:[],
             myOpenBids:[],
 
+            isSignatory:false,
+
             reservationsTimeout:null,
             trendingReservationsTimeout:null,
             myReservationsTimeout:null,
             myOpenBidsTimeout:null,
+            totalReservationsTimeout:null,
 
         }},
         mounted(){
+            setTimeout(() => {
+                if(this.$route.query.bid) {
+                    this[Actions.SET_SEARCH_TERMS](this.$route.query.bid);
+                    const originalTop = document.getElementById('searchbar').getBoundingClientRect().top;
+                    window.scrollBy({
+                        top: originalTop-50,
+                        behavior: "smooth"
+                    });
+                }
+            }, 500);
+
+
             this.getReservations();
             setTimeout(() => {
                 this.getTrendingReservations();
+                this.getTotalReservations();
             }, 1000);
         },
         computed: {
             ...mapGetters([
                 'ethAddress',
                 'searchTerms',
+                'scatterContract',
+                'mmaddr'
             ]),
             ...mapState([
                 'w3',
             ])
         },
         methods: {
+            deltaPage(delta){
+                if(delta < 0 && this.page === 0) return false;
+                if(delta > 0 && !this.reservations.length) return false;
+                this.page += delta;
+            },
             forwardSearchTerms(terms){
                 this[Actions.SET_SEARCH_TERMS](terms.target.value);
             },
@@ -325,7 +337,7 @@
             getReservations(){
                 this.timedFetch(
                     CachingService.getReservations,
-                    [RESERVATION_TYPES.USER, this.searchTerms, this.ethAddress],
+                    [RESERVATION_TYPES.USER, this.searchTerms, this.ethAddress, this.page],
                     this.reservationsTimeout
                 ).then(rows => {
                     this.reservations = rows;
@@ -356,6 +368,16 @@
                 this.selectedBidState = state;
                 this.getMyOpenBids();
             },
+            getTotalReservations(){
+                this.timedFetch(
+                    ContractService.totalReservations,
+                    [this],
+                    this.totalReservationsTimeout
+                ).then(total => {
+                    if(total) this.totalReservations = total-1;
+                    this.totalReservationsTimeout = setTimeout(() => this.getTotalReservations(), timer);
+                })
+            },
             ...mapActions([
                 Actions.SET_SEARCH_TERMS
             ])
@@ -368,6 +390,13 @@
                 this.getMyReservations();
                 this.getReservations();
                 this.getMyOpenBids();
+                this.getTrendingReservations();
+                ContractService.isSignatory(this).then(isSig => {
+                    this.isSignatory = isSig;
+                })
+            },
+            page(){
+                this.getReservations();
             }
         }
     }
@@ -482,6 +511,11 @@
                 font-weight:bold;
                 color:#fff;
                 margin-bottom:5px;
+                opacity:0;
+                transition: opacity 0.5s ease;
+                &.show {
+                    opacity:1;
+                }
             }
 
             h2 {
@@ -600,6 +634,14 @@
                     position: relative;
                     margin-top:8px;
                     text-transform: uppercase;
+
+                    &.btn {
+                        padding:5px;
+                        border:1px solid #333455;
+                        border-top-left-radius:4px;
+                        border-top-right-radius:4px;
+                        border-bottom:0;
+                    }
 
                     &:hover, &.active {
                         opacity:1;
