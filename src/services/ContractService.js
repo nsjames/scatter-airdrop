@@ -1,7 +1,6 @@
 import CachingService from './CachingService';
 
 const decimals = 1000000000000000000;
-const registrationPrice = process.env.RESERVATION_PRICE;
 
 export default class ContractService {
 
@@ -12,7 +11,7 @@ export default class ContractService {
 
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.reserveUser()');
+            const exit = ContractService.exiter(reject, 'ContractService.reserveUser()', context);
             const options = {from:context.mmaddr};
 
             const reservationArgs = [
@@ -22,8 +21,11 @@ export default class ContractService {
 
             const exists = await context.scatterContract.methods.exists(bytes(name.toLowerCase())).call().catch(exit);
             if(exists) exit("The name you have requested already exists!");
+            context.popup.loading = true;
 
-            ContractService.allowEOS(context,registrationPrice,exit).then(async allowed => {
+            const reservationPrice = await context.scatterContract.methods.reservationPrice().call().catch(exit);
+
+            ContractService.allowEOS(context,reservationPrice,exit).then(async allowed => {
                 if(!allowed) exit("You must approve the EOS allowance");
 
                 const reserved = await context.scatterContract.methods.reserve(...reservationArgs).send(options).catch(error => {
@@ -44,16 +46,18 @@ export default class ContractService {
     }
 
     static isSignatory(context){
+        context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
-            const exit = ContractService.exiter(reject, 'ContractService.isSignatory()');
+            const exit = ContractService.exiter(reject, 'ContractService.isSignatory()', context);
             const signatory = await context.scatterContract.methods.getSignatory().call().catch(exit);
             resolve(context.mmaddr === signatory);
         })
     }
 
     static setDappDecision(context, reservationId, accepted){
+        context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
-            const exit = ContractService.exiter(reject, 'ContractService.setDappDecision()');
+            const exit = ContractService.exiter(reject, 'ContractService.setDappDecision()', context);
             const options = {from:context.mmaddr};
             const decided = await context.scatterContract.methods.dappDecision(reservationId, accepted).send(options).catch(exit);
             const {transactionHash} = decided;
@@ -62,9 +66,10 @@ export default class ContractService {
     }
 
     static bid(context, bid){
+        context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.bid()');
+            const exit = ContractService.exiter(reject, 'ContractService.bid()', context);
             const options = {from:context.mmaddr, value:bid.price};
 
             const bidArgs = [
@@ -83,19 +88,20 @@ export default class ContractService {
     }
 
     static sell(context, reservation, bid){
+        context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.sell()');
+            const exit = ContractService.exiter(reject, 'ContractService.sell()', context);
             const options = {from:context.mmaddr, gasLimit: "150000"};
 
             const canSell = await CachingService.sell(context.mmaddr, reservation.id);
-            console.log('canSell', canSell);
             if(!canSell){
                 resolve(false);
                 return false;
             }
 
             context.scatterContract.methods.sell(reservation.id).send(options).catch(async error => {
+                console.log('error', error);
                 const unsold = await CachingService.unsell(context.mmaddr, reservation.id);
                 exit(error);
             }).then(sold => {
@@ -106,9 +112,10 @@ export default class ContractService {
     }
 
     static unbid(context, reservation, bid){
+        context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.unbid()');
+            const exit = ContractService.exiter(reject, 'ContractService.unbid()', context);
             const options = {from:context.mmaddr, gasLimit:"100000"};
 
             const canUnbid = await CachingService.unbid(context.mmaddr, reservation.id, bid.price);
@@ -127,24 +134,28 @@ export default class ContractService {
         })
     }
 
-    static exiter(reject, method){
+    static exiter(reject, method, context){
         return error => {
             console.error('Ethereum Error - '+method);
+            context.popup.loading = false;
             reject(error);
-            throw new Error(error)
+            throw new Error(error);
         }
     }
 
     static allowEOS(context, price, exit){
         return new Promise(async (resolve, reject) => {
-            //TODO: Disabled for testing
-            // resolve(true);
-
             const saddr = process.env.SCATTER_CONTRACT_ADDRESS;
             const options = {from:context.mmaddr};
 
-            const approved = await context.eosContract.methods.approve(saddr, price).send(options).catch(exit);
-            const allowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call(options).catch(exit);
+            const balance = await context.eosContract.methods.balanceOf(context.mmaddr).call().catch(exit);
+            if(balance < price) exit(`Not enough EOS in account. Account needs ${price/decimals} EOS available.`);
+
+            const approved = await context.eosContract.methods.approve(saddr, price).send(options)
+                .catch(() => exit(`You must approve the contract's ability to transfer ${price/decimals} EOS to itself.`));
+            const allowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call()
+                .catch(() => exit('Contract does not have ample EOS allowance.'));
+
             resolve(allowance >= price);
         })
     }

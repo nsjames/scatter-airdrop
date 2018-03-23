@@ -111,9 +111,6 @@
 
 
             <section v-if="w3">
-                <section v-if="isSignatory">
-
-                </section>
 
                 <!-- MY RESERVATIONS -->
                 <section class="list">
@@ -121,7 +118,7 @@
                         <h1>Reservations</h1>
                     </section>
                     <figure v-for="r in myReservations">
-                        <list-item :disabled="r.locked" hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = true;" v-on:opened="setSelection(r)"></list-item>
+                        <list-item :disabled="r.isLocked()" hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
                     </figure>
                     <section v-if="!myReservations.length">
                         <figure class="bounding-box">
@@ -160,7 +157,7 @@
             <!-- META -->
             <section class="meta">
                 <section class="circle">
-                    <h1 class="hidden-counter" :class="{'show':totalReservations > 0}">{{totalReservations}}</h1>
+                    <h1 class="hidden-counter" :class="{'show':totalReservations}">{{totalReservations}}</h1>
                     <h2>Identities Reserved</h2>
                     <p>2,214,500+ tokens airdropped</p>
                 </section>
@@ -169,6 +166,7 @@
                     <rounded-button big="More About RIDL" small="Reputation and Identity Layer"></rounded-button>
                     <rounded-button big="More About Scatter" small="Already a working product."></rounded-button>
                     <rounded-button @click.native="readBeforeContinuing" v-if="!firstTime" big="Read Before Continuing" small="Make sure you have read this"></rounded-button>
+                    <rounded-button @click.native="joinTelegram" big="Join our Telegram!" small="The best place for news."></rounded-button>
                 </section>
             </section>
 
@@ -179,7 +177,7 @@
                     <h1>Trending Bid Battles</h1>
                 </section>
                 <figure v-for="r in trendingReservations">
-                    <list-item :disabled="r.locked" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = true;" v-on:opened="setSelection(r)"></list-item>
+                    <list-item :disabled="r.isLocked()" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
                 </figure>
                 <section v-if="!trendingReservations.length">
                     <figure class="bounding-box">
@@ -203,7 +201,7 @@
                     </section>
                 </section>
                 <figure v-for="r in reservations">
-                    <list-item :disabled="r.locked" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = true;" v-on:opened="setSelection(r)"></list-item>
+                    <list-item :disabled="r.isLocked()" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
                 </figure>
                 <section v-if="!reservations.length">
                     <figure class="bounding-box">
@@ -241,15 +239,13 @@
 
             selectedReservation:null,
 
-            totalReservations:0,
+            totalReservations:null,
             page:0,
 
             reservations:[],
             trendingReservations:[],
             myReservations:[],
             myOpenBids:[],
-
-            isSignatory:false,
 
             reservationsTimeout:null,
             trendingReservationsTimeout:null,
@@ -275,6 +271,10 @@
             setTimeout(() => {
                 this.getTrendingReservations();
                 this.getTotalReservations();
+                if(this.ethAddress){
+                    this.getMyReservations();
+                    this.getMyOpenBids();
+                }
             }, 1000);
         },
         computed: {
@@ -370,11 +370,11 @@
             },
             getTotalReservations(){
                 this.timedFetch(
-                    ContractService.totalReservations,
+                    CachingService.totalReservations,
                     [this],
                     this.totalReservationsTimeout
                 ).then(total => {
-                    if(total) this.totalReservations = total-1;
+                    this.totalReservations = total;
                     this.totalReservationsTimeout = setTimeout(() => this.getTotalReservations(), timer);
                 })
             },
@@ -388,12 +388,9 @@
             },
             ethAddress(){
                 this.getMyReservations();
-                this.getReservations();
                 this.getMyOpenBids();
+                this.getReservations();
                 this.getTrendingReservations();
-                ContractService.isSignatory(this).then(isSig => {
-                    this.isSignatory = isSig;
-                })
             },
             page(){
                 this.getReservations();

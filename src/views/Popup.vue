@@ -22,7 +22,13 @@
                     </section>
 
                     <section class="loading" v-if="popup.loading">
-                        <figure class="logo">Scatter</figure>
+                        <figure class="logo">
+                            Scatter
+                            <p class="open-sans" style="color:#fff;"><b>Do <u>not</u> close this window.</b></p>
+                            <br>
+                            <p class="open-sans"><b>Sorry this takes so long, it's Ethereum.</b></p>
+                        </figure>
+
                         <section class="boxLoading">
                             <!--<figure class="dot1"></figure>-->
                             <!--<figure class="dot2"></figure>-->

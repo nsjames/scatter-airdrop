@@ -62,6 +62,7 @@ class App {
     }
 
     async initializeEthereum(store){
+
         let web3 = window.web3;
         if(typeof web3 === 'undefined'){
             alert("You need meta mask");
@@ -69,7 +70,12 @@ class App {
         }
 
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
+        web3.eth.net.getId().then(id => {
+            console.log('id', id);
+            store.dispatch(Actions.SET_WS_NET, id)
+        });
         this.getAccounts(web3, store);
+        console.log('hi', web3.utils.hexToNumber('0x1'), web3.utils.hexToNumber('0x01'));
     }
 
     getAccounts(web3, store){

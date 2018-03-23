@@ -7,20 +7,16 @@
             <section class="logo-container">
                 <figure class="logo">Scatter</figure>
                 <h1>{{reservation.name}}</h1>
-                <p class="tagline">This name is reserved for Scatter RIDL</p>
-
-                <br>
             </section>
 
             <figure class="modifiers">
                 <modifier :text="gene" v-for="(gene, i) in reservation.genetics" :class="{'full':gene !== '0x00'}" :key="i"></modifier>
-                <p class="tagline">CURRENT GENE SEQUENCE</p>
             </figure>
 
             <section class="logo-container">
                 <h1 v-if="reservation.topPrice">
+                    <p class="tagline">LAST SOLD FOR</p>
                     <span class="open-sans">{{reservation.topPrice | price}}</span> ETH
-                    <p class="tagline">LAST SOLD PRICE</p>
                 </h1>
                 <h1 v-else>
                     <span class="open-sans">1</span> EOS
@@ -29,52 +25,16 @@
             </section>
 
             <section class="reservation">
-                <p>
-
-                </p>
-
-
-                <!--<section class="switcher">-->
-                <!--<figure class="active-switch" :class="{'left':newReservation.type === reservationTypes.USER}"></figure>-->
-                <!--<figure class="switch"-->
-                <!--@click="newReservation.changeType(reservationTypes.USER)"-->
-                <!--:class="{'active':newReservation.type === reservationTypes.USER}">User</figure>-->
-                <!--<figure class="switch"-->
-                <!--@click="newReservation.changeType(reservationTypes.DAPP)"-->
-                <!--:class="{'active':newReservation.type === reservationTypes.DAPP}">Dapp</figure>-->
-                <!--</section>-->
-
                 <section class="cta">
                     <rounded-button big="Submit Bid" @click.native="bidOnName"></rounded-button>
                     <br>
                     <rounded-button big="Share" small="On Twitter" @click.native="twitterShare"></rounded-button>
                 </section>
 
-                <!--<figure class="terms">-->
-                    <!--By reserving you are accepting our Terms & Conditions-->
-                <!--</figure>-->
+                <router-link to="/">
+                    <figure class="terms">Back</figure>
+                </router-link>
             </section>
-
-            <!--<section class="reservation" v-else>-->
-                <!--<figure class="" style="color:#fff;">-->
-                    <!--<figure class="box">-->
-                        <!--You need MetaMask in order to participate in the reservation and auction system.-->
-                        <!--<br><br>-->
-                        <!--<p>-->
-                            <!--If you already <b>have</b> MetaMask, it's probably locked.-->
-                        <!--</p>-->
-                    <!--</figure>-->
-                <!--</figure>-->
-                <!--<br>-->
-                <!--<br>-->
-
-                <!--<section class="cta">-->
-                    <!--<a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">-->
-                        <!--<rounded-button big="Get MetaMask Extension" small="Who uses these things anyway?"></rounded-button>-->
-                    <!--</a>-->
-                <!--</section>-->
-
-            <!--</section>-->
 
         </section>
 
@@ -99,12 +59,13 @@
         mounted(){
             this.$refs.panel.style.minHeight = window.innerHeight+'px';
             CachingService.getReservationByName(this.$route.params.name).then(res => {
-                if(res)
+                if(res){
                     this.reservation = ReservationModel.fromJson(res);
-
-                while(this.reservation.genetics.length < 5){
-                    this.reservation.genetics.push('0x00')
+                    while(this.reservation.genetics.length < 5){
+                        this.reservation.genetics.push('0x00')
+                    }
                 }
+                else this.$router.push('/');
             });
         },
         computed: {
@@ -124,7 +85,7 @@
             },
             twitterShare(){
                 const url = "http://www.airdrop.scatter-eos.com/#/identity/"+this.reservation.name;
-                const text = `Want the unique name '${this.reservation.name}' on #EOS for Scatter? Come bid on it!`;
+                const text = `Want the unique name '${this.reservation.name}' on #EOS for Scatter? Come bid on it! @Scatter_EOS`;
                 window.open('http://twitter.com/share?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
             },
             ...mapActions([

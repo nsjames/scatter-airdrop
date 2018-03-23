@@ -11,7 +11,7 @@
                 </figure>
             </section>
 
-            <section class="reservation" v-if="w3">
+            <section class="reservation" v-if="w3 && onMainNet">
                 <section class="input-container">
                     <input placeholder="Choose an Identity Name" v-model="newReservation.name" />
                 </section>
@@ -41,12 +41,13 @@
 
             <section class="reservation" v-else>
                 <figure class="" style="color:#fff;">
-                    <figure class="box">
+                    <figure class="box" v-if="!w3">
                         You need MetaMask in order to participate in the reservation and auction system.
                         <br><br>
-                        <p>
-                            If you already <b>have</b> MetaMask, it's probably locked.
-                        </p>
+                        <p>If you already <b>have</b> MetaMask, it's probably locked.</p>
+                    </figure>
+                    <figure class="box" v-else>
+                        MetaMask is on the wrong network. You must be on the <b>Main Network</b>.
                     </figure>
                 </figure>
                 <br>
@@ -107,7 +108,8 @@
             ...mapGetters([
                 'eosContract',
                 'scatterContract',
-                'mmaddr'
+                'mmaddr',
+                'onMainNet'
             ]),
             ...mapState([
                 'w3'

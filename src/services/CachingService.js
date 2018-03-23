@@ -123,4 +123,12 @@ export default class CachingService {
         })
     }
 
+    static totalReservations(){
+        return new Promise((resolve, reject) => {
+            http.get(`totalres`)
+                .then(result => resolve(result.data.reservations))
+                .catch(err => resolve(false))
+        })
+    }
+
 }

@@ -18,10 +18,11 @@ export default class ReservationModel {
         this.lastSoldFor = 0;
         this.eth = '';
         this.trx = '';
-        this.locked = false;
+        this.locked = null;
     }
 
     static fromJson(json){ return Object.assign(new ReservationModel(), json) }
+    isLocked(){ return this.locked !== null && (+new Date() < (this.locked + (6*60*60*1000))); }
 
     static user(...args){ return new ReservationModel(RESERVATION_TYPES.USER, ...args)}
     static dapp(...args){ return new ReservationModel(RESERVATION_TYPES.DAPP, ...args)}

@@ -32,9 +32,9 @@
                 </section>
 
                 <!-- BID ACTIONS -->
-                <section class="actions" v-if="!isOwner()">
+                <section class="actions">
                     <action-button text="ID" @click.native="viewIdentity"></action-button>
-                    <action-button text="BID" :active="open"></action-button>
+                    <action-button v-if="!isOwner()" text="BID" :active="open"></action-button>
                 </section>
 
             </section>
@@ -142,7 +142,8 @@
             ...mapGetters([
                 'ethAddress',
                 'mmaddr',
-                'scatterContract'
+                'scatterContract',
+                'onMainNet'
             ]),
             ...mapState([
                 'w3'
@@ -169,7 +170,16 @@
             isBidOwner(bid){
                 return bid.eth === this.ethAddress;
             },
+            noMetaMask(){
+                if(!this.w3) this[Actions.PUSH_SNACKBAR](new Snackbar(`
+                    You must have MetaMask installed and open to be able to participate in this auction.
+                `));
+                else this[Actions.PUSH_SNACKBAR](new Snackbar(`
+                    MetaMask is not on the right network. You must be on the 'Main Network'.
+                `));
+            },
             submitBid(){
+                if(!this.w3 || !this.onMainNet){ this.noMetaMask(); return false; }
                 if(this.disabled) return false;
                 const highestBidEthereumKey = this.bids.length ? this.bids[0].state === BID_STATE.UNBID ? '' : this.bids[0].eth : '';
                 this[Actions.SET_POPUP](PopupModel.bid(this.reservation, highestBidEthereumKey), res => {
@@ -177,6 +187,7 @@
                 });
             },
             submitUnBid(bid){
+                if(!this.w3 || !this.onMainNet){ this.noMetaMask(); return false; }
                 if(this.disabled) return false;
                 this[Actions.SET_POPUP](PopupModel.confirmUnbid(this.reservation, bid), res => {
                     if(res) this.opened();
@@ -186,6 +197,7 @@
                 });
             },
             submitSale(bid){
+                if(!this.w3 || !this.onMainNet){ this.noMetaMask(); return false; }
                 if(this.disabled) return false;
                 this[Actions.SET_POPUP](PopupModel.confirmSale(this.reservation, bid, sold => {
                     if(sold) this.$emit('sold');

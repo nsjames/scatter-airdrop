@@ -10,12 +10,14 @@ const state = {
     popup:null,
     snackbars:[],
     w3:null,
+    w3net:null,
     ws:null,
 
     terms:'',
 };
 
 const getters = {
+    onMainNet:state => state.w3net !== null && (process.env.CURRENT_NETWORK === '' || state.w3net === Number(process.env.CURRENT_NETWORK)),
     newReservation:state => state.popup.data,
     eosContract:state => new state.w3.eth.Contract(require('../copied/assets/eos_abi.json'), process.env.EOS_CONTRACT_ADDRESS),
     scatterContract:state => new state.w3.eth.Contract(require('../copied/assets/scatter_abi.json'), process.env.SCATTER_CONTRACT_ADDRESS),
