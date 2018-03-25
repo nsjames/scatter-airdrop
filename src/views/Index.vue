@@ -56,6 +56,17 @@
                         after June 1st and would be stuck within the Scatter Reservation contract.
                     </p>
                 </figure>
+
+                <figure class="bounding-box">
+                    <p style="margin:0;">
+                        <b class="light">
+                            MetaMask doesn't show you the amount of EOS it is allowing, which is terrible UX. We have taken some steps to make sure you can verify the price on your own. Take note,
+                            Scatter never hides the transaction you are signing. That's irresponsible.
+                        </b><br><br>
+                        <u><a target="_blank" href="https://github.com/nsjames/scatter-airdrop">Click here and follow the steps to verify the current price</a><br></u>
+                        <u><a target="_blank" href="https://github.com/nsjames/ScatterReservation/blob/master/contracts/ScatterReservation.sol#L140">Click here to verify the contract code</a></u>
+                    </p>
+                </figure>
                 <hr>
 
                 <h2>Identity Genetics</h2>
