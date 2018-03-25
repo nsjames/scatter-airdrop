@@ -9,7 +9,9 @@
 
         <p>
             <span class="white">
-                <u>Click this link to read the code that generates this key pair</u>
+                <a href="https://github.com/nsjames/scatter-airdrop/blob/master/src/popups/GenerateKeyPair.vue#L67" target="_blank">
+                    <u>Click this link to read the code that generates this key pair</u>
+                </a>
             </span>
             <br>
             <br>

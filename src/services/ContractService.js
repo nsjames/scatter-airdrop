@@ -58,7 +58,6 @@ export default class ContractService {
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
             const exit = ContractService.exiter(reject, 'ContractService.bid()', context);
-            console.log('bid.price', bid.price);
             const options = {from:context.mmaddr, value:bid.price};
 
             const bidArgs = [
@@ -166,21 +165,22 @@ export default class ContractService {
                     }
 
                     const allowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call().catch(() => exit('Could not fetch allowance. Try again in a few minutes.'));
-
-                    console.log('alllow', allowance);
-
                     if(allowance < price) checkStatus();
                     else resolve(true);
                 }, interval);
             };
 
+            let checkingStatus = false;
             const approved = await context.eosContract.methods.approve(saddr, price).send(options)
                 .on('transactionHash', async (hash) => {
+                    checkingStatus = true;
                     checkStatus();
                 })
                 .on('error', error => {
-                    console.error(error);
-                    exit(`You must approve the contract's ability to transfer ${price/decimals} EOS to itself. Check the console logs for more information.`);
+                    if(!checkingStatus) {
+                        console.error(error);
+                        exit(`You must approve the contract's ability to transfer ${price / decimals} EOS to itself. Check the console logs for more information.`);
+                    }
                 });
 
 

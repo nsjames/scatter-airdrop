@@ -22,11 +22,15 @@
                     </section>
 
                     <section class="loading" v-if="popup.loading">
-                        <figure class="logo">
+                        <figure class="logo" v-if="popup.type !== popupTypes.GENERATE_KEY_PAIR">
                             Scatter
                             <p class="open-sans" style="color:#fff;"><b>Do <u>not</u> close this window.</b></p>
                             <br>
                             <p class="open-sans"><b>Sorry this takes so long, it's Ethereum.</b></p>
+                        </figure>
+                        <figure class="logo" v-else>
+                            Scatter
+                            <p class="open-sans" style="color:#fff;"><b>Gathering Entropy.</b></p>
                         </figure>
 
                         <section class="boxLoading">
