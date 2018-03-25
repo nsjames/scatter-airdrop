@@ -20,23 +20,24 @@
                     <circle-button icon="fa-plus-circle" @click.native="popupGenerateKeyPair"></circle-button>
                 </section>
 
-                <!--<section class="switcher">-->
-                    <!--<figure class="active-switch" :class="{'left':newReservation.type === reservationTypes.USER}"></figure>-->
-                    <!--<figure class="switch"-->
-                            <!--@click="newReservation.changeType(reservationTypes.USER)"-->
-                            <!--:class="{'active':newReservation.type === reservationTypes.USER}">User</figure>-->
-                    <!--<figure class="switch"-->
-                            <!--@click="newReservation.changeType(reservationTypes.DAPP)"-->
-                            <!--:class="{'active':newReservation.type === reservationTypes.DAPP}">Dapp</figure>-->
-                <!--</section>-->
+                <section class="switcher">
+                    <figure class="active-switch" :class="{'left':newReservation.biddable}"></figure>
+                    <figure class="switch"
+                            @click="newReservation.changeBiddable(true)"
+                            :class="{'active':newReservation.biddable}">Biddable</figure>
+                    <figure class="switch"
+                            @click="newReservation.changeBiddable(false)"
+                            :class="{'active':!newReservation.biddable}">Private</figure>
+                </section>
+
+                <p style="color:#fff; margin-top:10px;">
+                    Private reservations will not take part in the auction. This is for users that don't want their
+                    personal data connected to their public keys. Choose wisely, you can not change this later.
+                </p>
 
                 <section class="cta">
                     <rounded-button big="Reserve Identity Name" @click.native="popupConfirmNewReservation"></rounded-button>
                 </section>
-
-                <figure class="terms">
-                    By reserving you are accepting our Terms & Conditions
-                </figure>
             </section>
 
             <section class="reservation" v-else>
@@ -87,22 +88,6 @@
         }},
         mounted(){
             particlesJS.load('particles-js', './assets/particles.json');
-//            CachingService.cacheNewReservation(ReservationModel.fromJson({
-//                type:RESERVATION_TYPES.USER,
-//                name:'test',
-//                publicKey:'EOS6Li9tCwRJtsNtPz7tt5dMs3XaQpQLpHPsAvTJ8sVmyuq6Ubhvc',
-//                genetics:'A',
-//                email:'hi@bye.com',
-//                id:1
-//            })).then(done => {
-//                console.log('done', done);
-//            }).catch(err => {
-//                console.log('err', err);
-//            })
-
-            CachingService.getReservations(RESERVATION_TYPES.USER, '').then(res => {
-                console.log('res', res);
-            })
         },
         computed: {
             ...mapGetters([
@@ -160,7 +145,6 @@
 
                 this[Actions.SET_POPUP](PopupModel.confirmNewReservation(this.newReservation, done => {
 
-                    console.log('Hi')
                 }));
             },
             ...mapActions([
@@ -337,7 +321,7 @@
                 }
 
                 .cta {
-                    margin-top:20px;
+                    margin-top:30px;
                 }
 
                 .terms {

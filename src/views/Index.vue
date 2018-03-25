@@ -102,9 +102,11 @@
                     <b>Any RIDL tokens on any network besides EOS are <u>NOT</u> ours, and have nothing to do with us or this airdrop/auction.</b>
                     The RIDL Token is a <b>utility</b> token. Though it <u>can</u> be, it is not Scatter's intention for the token to be sold for any monetary value.
                     <br><br>
-                    The only thing being sold here on this website is an actual virtual asset in the form of a reserved name for the future EOS blockchain.
-                    You may liken the reservation process to that of reserving a seat at a ball game, pre-purchasing a video game, or buying concert tickets. It is also not our intention for the
-                    Genetics to be used as a gambling mechanism. There is no difference between the letters other than that given by the community, they do not affect RIDL in any way.
+                    <b>
+                        The only thing being sold here on this website is an actual virtual asset in the form of a reserved name for the future EOS blockchain.
+                        You may liken the reservation process to that of reserving a seat at a ball game, pre-purchasing a video game, or buying concert tickets. It is also not our intention for the
+                        Genetics to be used as a gambling mechanism. There is no difference between the letters other than that given by the community, they do not affect RIDL in any way.
+                    </b>
                 </p>
             </section>
 

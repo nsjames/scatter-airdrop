@@ -97,6 +97,7 @@
             submitBid(){
                 const bytes = string => this.w3.utils.fromAscii(string);
                 const price = this.price * 1000000000000000000;
+                console.log('price', price);
 
                 if(this.price < 0.01){
                     this[Actions.PUSH_SNACKBAR](new Snackbar(`

@@ -1,51 +1,62 @@
 <template>
     <section>
 
-        <h1>{{newReservation.name}}</h1>
+        <section v-if="!trx">
+            <h1>{{newReservation.name}}</h1>
 
-
-        <section class="kv">
-            <figure class="key">RESERVING</figure>
-            <figure class="value" style="text-transform:uppercase;">IDENTITY</figure>
-        </section>
-
-        <section class="kv">
-            <figure class="key">PUBLIC KEY</figure>
-            <figure class="value">{{newReservation.publicKey.substr(0,6)}}......{{newReservation.publicKey.slice(-5)}}</figure>
-        </section>
-
-        <br><br>
-
-        <p>
-            You will get <b>two</b> MetaMask prompts. The first one will be sent to the EOS ERC20 contract and will approve
-            the Scatter Reservation contract's ability to move 1 EOS token. The second will be sent to the Scatter Reservation
-            contract and will reserve your name.
-        </p>
-
-        <br>
-        <br>
-
-        <section class="action">
-            <p>
-                <b>Get notifications about bids</b>
-                <br>
-                <i class="fa fa-arrow-down"></i>
-                <br>
-                <br>
-            </p>
-            <section class="input-container">
-                <input placeholder="Enter Your Email ( optional )" v-model="newReservation.email" />
+            <section class="kv">
+                <figure class="key">RESERVING</figure>
+                <figure class="value" style="text-transform:uppercase;">IDENTITY</figure>
             </section>
 
-            <rounded-button big="Pay With MetaMask" small="The irony, we know." @click.native="submitReservation"></rounded-button>
-            <p style="margin-top:10px;">
-                <b>All new reservations cost <span class="open-sans">1</span> EOS.</b>
+            <section class="kv">
+                <figure class="key">PUBLIC KEY</figure>
+                <figure class="value">{{newReservation.publicKey.substr(0,6)}}......{{newReservation.publicKey.slice(-5)}}</figure>
+            </section>
+
+            <br><br>
+
+            <p>
+                You will get <b>two</b> MetaMask prompts. The first one will be sent to the EOS ERC20 contract and will approve
+                the Scatter Reservation contract's ability to move 1 EOS token. The second will be sent to the Scatter Reservation
+                contract and will reserve your name.
             </p>
+
+            <section class="action">
+                <p>
+                    <b>Get notifications about bids</b>
+                    <br>
+                    <i class="fa fa-arrow-down"></i>
+                    <br>
+                    <br>
+                </p>
+                <section class="input-container">
+                    <input placeholder="Enter Your Email ( optional )" v-model="newReservation.email" />
+                </section>
+
+                <rounded-button big="Pay With MetaMask" small="The irony, we know." @click.native="submitReservation"></rounded-button>
+                <p style="margin-top:10px;">
+                    <b>All new reservations cost <span class="open-sans">1</span> EOS.</b>
+                </p>
+            </section>
+        </section>
+
+        <section v-else>
+            <h1>Name Reserved!</h1>
+
+            <p>
+                <b>Transaction Hash: <a target="_blank" :href="'https://etherscan.io/tx/'+trx"><u>{{trx}}</u></a></b>
+                <br><br>
+                This does not mean your transaction has gone through. You can click on the hash above to track it.
+                If it succeeds we will automatically pick it up and add it to the auction if it is biddable.
+            </p>
+
+            <section class="action">
+                <rounded-button big="Close" @click.native="close"></rounded-button>
+            </section>
         </section>
 
 
-        <!-- INPUT FIELD USED FOR COPYING -->
-        <input tabindex="-1" type="text" ref="copier" class="copier" />
     </section>
 </template>
 
@@ -63,6 +74,7 @@
     export default {
         data(){ return {
             reservationTypes:RESERVATION_TYPES,
+            trx:'',
         }},
         mounted(){
 
@@ -91,12 +103,12 @@
 
                 const finish = result => {
                     this.popup.loading = false;
-                    console.log('result', result);
-                    if(result && result.hasOwnProperty('reservationId') && result.reservationId > 0){
-                        this[Actions.SET_POPUP](null);
-                        this[Actions.PUSH_SNACKBAR](new Snackbar(
-                            `Your name has been reserved!`
-                        ));
+                    if(result && result.hasOwnProperty('trx') && result.trx){
+//                        this[Actions.SET_POPUP](null);
+//                        this[Actions.PUSH_SNACKBAR](new Snackbar(
+//                            `Your name has been reserved!`
+//                        ));
+                        this.trx = result.trx;
                     } else {
                         this[Actions.PUSH_SNACKBAR](new Snackbar(
                             `There was an error with this reservation: ${result}`
@@ -110,6 +122,9 @@
                     .then(finish).catch(finish);
 
             },
+            close(){
+                this[Actions.SET_POPUP](null);
+            },
             ...mapActions([
                 Actions.SET_POPUP,
                 Actions.PUSH_SNACKBAR
@@ -119,9 +134,5 @@
 </script>
 
 <style lang="scss">
-    .copier {
-        position:absolute;
-        top:-9999px;
-    }
 
 </style>

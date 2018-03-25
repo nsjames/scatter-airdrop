@@ -19,6 +19,7 @@ export default class ReservationModel {
         this.eth = '';
         this.trx = '';
         this.locked = null;
+        this.biddable = true;
     }
 
     static fromJson(json){ return Object.assign(new ReservationModel(), json) }
@@ -29,6 +30,10 @@ export default class ReservationModel {
 
     changeType(_type){
         this.type = _type;
+    }
+
+    changeBiddable(biddable){
+        this.biddable = biddable;
     }
 
 }

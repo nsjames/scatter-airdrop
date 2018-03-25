@@ -1,34 +1,47 @@
 <template>
     <section>
 
-        <h1>{{sellingReservation.name}}</h1>
+        <section v-if="!trx">
+            <h1>{{sellingReservation.name}}</h1>
 
 
-        <section class="kv">
-            <figure class="key">SELLING</figure>
-            <figure class="value" style="text-transform:uppercase;">IDENTITY</figure>
-        </section>
-        <br>
-        <br>
-        <p>
-            You are about to sell this reservation for <b>{{sellingBid.price | price}} ETH</b><br>
-            You stand to make around <b>{{sellingBid.price - (sellingBid.price/10) | price}} ETH</b>.<br><br>
-            <b style="color:#fff;">Are you sure?</b>
-        </p>
-
-        <br>
-        <br>
-
-        <section class="action">
-            <rounded-button big="Sell Reservation" @click.native="sellReservation"></rounded-button>
-            <p style="margin-top:10px;">
-                <b>Selling a reservation costs 10% of the bid price. Take that into account.</b>
+            <section class="kv">
+                <figure class="key">SELLING</figure>
+                <figure class="value" style="text-transform:uppercase;">IDENTITY</figure>
+            </section>
+            <br>
+            <br>
+            <p>
+                You are about to sell this reservation for <b>{{sellingBid.price | price}} ETH</b><br>
+                You stand to make around <b>{{sellingBid.price - (sellingBid.price/10) | price}} ETH</b>.<br><br>
+                <b style="color:#fff;">Are you sure?</b>
             </p>
+
+            <br>
+            <br>
+
+            <section class="action">
+                <rounded-button big="Sell Reservation" @click.native="sellReservation"></rounded-button>
+                <p style="margin-top:10px;">
+                    <b>Selling a reservation costs 10% of the bid price. Take that into account.</b>
+                </p>
+            </section>
         </section>
 
+        <section v-else>
+            <h1>Name Sold!</h1>
 
-        <!-- INPUT FIELD USED FOR COPYING -->
-        <input tabindex="-1" type="text" ref="copier" class="copier" />
+            <p>
+                <b>Transaction Hash: <a target="_blank" :href="'https://etherscan.io/tx/'+trx"><u>{{trx}}</u></a></b>
+                <br><br>
+                This does not mean your transaction has gone through. You can click on the hash above to track it.
+            </p>
+
+            <section class="action">
+                <rounded-button big="Close" @click.native="close"></rounded-button>
+            </section>
+        </section>
+
     </section>
 </template>
 
@@ -46,6 +59,7 @@
     export default {
         data(){ return {
             reservationTypes:RESERVATION_TYPES,
+            trx:'',
         }},
         mounted(){
 
@@ -66,41 +80,17 @@
         methods: {
             sellReservation(){
                 ContractService.sell(this, this.sellingReservation, this.sellingBid).then(sold => {
-                    if(sold && sold.hasOwnProperty('transactionHash')){
+                    this.popup.loading = false;
+                    if(sold && sold.hasOwnProperty('trx')){
+                        this.trx = sold.trx;
                         this.popup.resolve(true);
-                        this[Actions.SET_POPUP](null);
                     } else {
                         this.popup.resolve(false);
                     }
                 })
-
-//                if((this.sellingReservation.type === RESERVATION_TYPES.DAPP || this.sellingReservation.email.trim().length) && !validEmail(this.sellingReservation.email)){
-//                    this[Actions.PUSH_SNACKBAR](new Snackbar(
-//                        this.sellingReservation.email.trim().length ? `The email you entered is invalid.` : `You must provide an email for verification.`
-//                    ));
-//                    return false;
-//                }
-//
-//                const finish = result => {
-//                    this.popup.loading = false;
-//                    console.log('result', result);
-//                    if(result && result.hasOwnProperty('reservationId') && result.reservationId > 0){
-//                        this[Actions.SET_POPUP](null);
-//                        this[Actions.PUSH_SNACKBAR](new Snackbar(
-//                            `Your name has been reserved!`
-//                        ));
-//                    } else {
-//                        this[Actions.PUSH_SNACKBAR](new Snackbar(
-//                            `There was an error with this reservation: ${result}`
-//                        ));
-//                    }
-//                };
-//
-//                this.sellingReservation.eth = this.w3.defaultAccount;
-//
-//                ContractService.reserve(this, this.sellingReservation)
-//                    .then(finish).catch(finish);
-
+            },
+            close(){
+                this[Actions.SET_POPUP](null);
             },
             ...mapActions([
                 Actions.SET_POPUP,
@@ -111,9 +101,5 @@
 </script>
 
 <style lang="scss">
-    .copier {
-        position:absolute;
-        top:-9999px;
-    }
 
 </style>

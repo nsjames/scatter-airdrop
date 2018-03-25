@@ -214,21 +214,20 @@
                 });
             },
             loadBids(){
+                clearTimeout(this.bidTimeout);
                 if(!this.open){
-                    this.bidTimeout = null;
                     return false;
                 }
+
+                const resulted = bids => {
+                    this.bids = bids;
+                    this.fetched = true;
+                    this.bidTimeout = setTimeout(() => this.loadBids(), 3500);
+                };
+
                 CachingService.bids(this.reservation.id)
-                    .then(rows => {
-                        this.bids = rows.map(BidModel.fromJson);
-                        this.fetched = true;
-                        this.bidTimeout = setTimeout(() => this.loadBids(), 2000);
-                    })
-                    .catch(err => {
-                        this.bids = [];
-                        this.fetched = true;
-                        this.bidTimeout = setTimeout(() => this.loadBids(), 2000);
-                    })
+                    .then(rows => resulted(rows.map(BidModel.fromJson)))
+                    .catch(err => resulted([]))
             },
             twoDaysSince(bid){
                 const days = bid.timestamp + (1000 * 60 * 60 * 24 * 2);

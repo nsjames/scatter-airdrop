@@ -82,7 +82,6 @@ export default class CachingService {
 
     static sell(ethkey, reservationId){
         return new Promise((resolve, reject) => {
-            console.log(ethkey, reservationId);
             http.post(`reservations/sell`, {ethkey, reservationId})
                 .then(result => resolve(result.data.sold))
                 .catch(err => resolve(false))
@@ -91,7 +90,6 @@ export default class CachingService {
 
     static unsell(ethkey, reservationId){
         return new Promise((resolve, reject) => {
-            console.log(ethkey, reservationId);
             http.post(`reservations/sell/revert`, {ethkey, reservationId})
                 .then(result => resolve(result.data.sold))
                 .catch(err => resolve(false))
@@ -108,7 +106,6 @@ export default class CachingService {
 
     static rebid(ethkey, reservationId){
         return new Promise((resolve, reject) => {
-            console.log(ethkey, reservationId);
             http.post(`rebid`, {ethkey, reservationId})
                 .then(result => resolve(result.data.rebid))
                 .catch(err => resolve(false))
