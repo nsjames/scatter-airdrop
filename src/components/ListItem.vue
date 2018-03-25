@@ -7,7 +7,7 @@
 
                 <!-- NAME -->
                 <section class="name-container">
-                    <figure class="name" :class="{'private':reservation.biddable}">{{reservation.name}}</figure>
+                    <figure class="name" :class="{'private':isBiddable(reservation)}">{{reservation.name}}</figure>
                     <figure class="modifiers" :class="{'full':reservation.genetics.length ===5}">
                         <modifier :text="gene" v-for="(gene, i) in reservation.genetics" :key="i"></modifier>
                     </figure>
@@ -232,6 +232,9 @@
             twoDaysSince(bid){
                 const days = bid.timestamp + (1000 * 60 * 60 * 24 * 2);
                 return +new Date() > days
+            },
+            isBiddable(r){
+                return !r.hasOwnProperty('biddable') || r.biddable
             },
             ...mapActions([
                 Actions.SET_POPUP,
