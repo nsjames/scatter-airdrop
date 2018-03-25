@@ -52,7 +52,10 @@ export default class CachingService {
         return new Promise((resolve, reject) => {
             http.get(`reservations/eth/${ethkey}`)
                 .then(result => resolve(result.data.reservations.map(ReservationModel.fromJson)))
-                .catch(err => resolve([]))
+                .catch(err => {
+                    console.error(err);
+                    resolve([])
+                })
         })
     }
 
