@@ -86,7 +86,7 @@ export default class ContractService {
         return new Promise(async (resolve, reject) => {
             const bytes = string => context.w3.utils.fromAscii(string);
             const exit = ContractService.exiter(reject, 'ContractService.sell()', context);
-            const options = {from:context.mmaddr, gasLimit: "150000"};
+            const options = {from:context.mmaddr, gasLimit: "200000"};
 
             const canSell = await CachingService.sell(context.mmaddr, reservation.id);
             if(!canSell){
