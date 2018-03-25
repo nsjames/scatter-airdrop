@@ -222,7 +222,7 @@
                 const resulted = bids => {
                     this.bids = bids;
                     this.fetched = true;
-                    this.bidTimeout = setTimeout(() => this.loadBids(), 3500);
+                    this.bidTimeout = setTimeout(() => this.loadBids(), 10000);
                 };
 
                 CachingService.bids(this.reservation.id)

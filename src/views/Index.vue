@@ -248,7 +248,7 @@
     import ContractService from '../services/ContractService'
     import {BID_STATE} from '../models/BidModel'
 
-    const timer = 10000;
+    const timer = 20000;
     export default {
         data(){ return {
             firstTime:localStorage.getItem("firstTime") === null,
