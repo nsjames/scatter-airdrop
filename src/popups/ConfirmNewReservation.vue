@@ -23,14 +23,14 @@
             </p>
 
             <section class="action">
-                <p>
+                <p v-if="newReservation.biddable">
                     <b>Get notifications about bids</b>
                     <br>
                     <i class="fa fa-arrow-down"></i>
                     <br>
                     <br>
                 </p>
-                <section class="input-container">
+                <section class="input-container" v-if="newReservation.biddable">
                     <input placeholder="Enter Your Email ( optional )" v-model="newReservation.email" />
                 </section>
 
