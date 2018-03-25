@@ -128,7 +128,7 @@
                 <!-- MY RESERVATIONS -->
                 <section class="list">
                     <section class="head">
-                        <h1>Reservations</h1>
+                        <h1>My Reservations</h1>
                     </section>
                     <figure v-for="r in myReservations">
                         <list-item :disabled="r.isLocked()" hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
@@ -145,7 +145,7 @@
                 <!-- MY BIDS -->
                 <section class="list">
                     <section class="head">
-                        <h1>Bids</h1>
+                        <h1>My Bids</h1>
                         <section class="filters">
                             <figure class="filter"
                                     :class="{'active':selectedBidState === state}"

@@ -7,7 +7,7 @@
 
                 <!-- NAME -->
                 <section class="name-container">
-                    <figure class="name">{{reservation.name}}</figure>
+                    <figure class="name" :class="{'private':reservation.biddable}">{{reservation.name}}</figure>
                     <figure class="modifiers" :class="{'full':reservation.genetics.length ===5}">
                         <modifier :text="gene" v-for="(gene, i) in reservation.genetics" :key="i"></modifier>
                     </figure>
@@ -313,6 +313,10 @@
             font-size:18px;
             color:#fff;
             display:inline-block;
+
+            &.private {
+                color:red;
+            }
         }
 
         .modifiers {
