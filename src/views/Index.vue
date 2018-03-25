@@ -165,10 +165,16 @@
                 </section>
 
                 <section class="ctas">
-                    <rounded-button big="More About RIDL" small="Reputation and Identity Layer"></rounded-button>
-                    <rounded-button big="More About Scatter" small="Already a working product."></rounded-button>
+                    <a href="https://docs.google.com/document/d/1P6Oz08vNjrJO1H3HmBkuh4BIVm3-0YAe4nqo-xfT4v0/edit?usp=sharing" target="_blank">
+                        <rounded-button big="More About RIDL" small="Reputation and Identity Layer"></rounded-button>
+                    </a>
+                    <a href="http://www.scatter-eos.com" target="_blank">
+                        <rounded-button big="More About Scatter" small="Already a working product."></rounded-button>
+                    </a>
                     <rounded-button @click.native="readBeforeContinuing" v-if="!firstTime" big="Read Before Continuing" small="Make sure you have read this"></rounded-button>
-                    <rounded-button @click.native="joinTelegram" big="Join our Telegram!" small="The best place for news."></rounded-button>
+                    <a href="https://t.me/Scatter" target="_blank">
+                        <rounded-button big="More About Scatter" small="Already a working product."></rounded-button>
+                    </a>
                 </section>
             </section>
 
