@@ -173,7 +173,7 @@
                     </a>
                     <rounded-button @click.native="readBeforeContinuing" v-if="!firstTime" big="Read Before Continuing" small="Make sure you have read this"></rounded-button>
                     <a href="https://t.me/Scatter" target="_blank">
-                        <rounded-button big="More About Scatter" small="Already a working product."></rounded-button>
+                        <rounded-button @click.native="joinTelegram" big="Join our Telegram!" small="The best place for news."></rounded-button>
                     </a>
                 </section>
             </section>
