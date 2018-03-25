@@ -4,7 +4,7 @@
 
         <transition name="open-up">
             <section class="popup-container" v-if="!!popup">
-                <section class="popup">
+                <section id="popup" class="popup">
 
                     <div class="bg"></div>
                     <div class="popup-particles" id="popup-particles"></div>
@@ -87,7 +87,12 @@
                 if(this.popup){
                     setTimeout(() => {
                         particlesJS.load('popup-particles', './assets/particles.json');
-                    }, 500)
+                        const p = document.getElementById('popup');
+                        if(p.offsetHeight > window.innerHeight){
+                            p.style.height = window.innerHeight-90+'px';
+                            p.style['overflow-y'] = 'scroll';
+                        }
+                    }, 500);
                 }
             }
         }
