@@ -66,6 +66,8 @@ class App {
         let web3 = window.web3;
         if(typeof web3 === 'undefined') return false;
 
+        //TODO: Catch unsupported browsers
+
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
         web3.eth.net.getId().then(id => {
             store.dispatch(Actions.SET_WS_NET, id)
