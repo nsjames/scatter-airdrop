@@ -133,7 +133,7 @@
                     <figure v-for="r in myReservations">
                         <list-item :disabled="r.isLocked()" hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
                     </figure>
-                    <p v-if="!myReservations.length" style="color:yellow; font-size:11px; margin-bottom:10px; margin-top:-15px; margin-left:20px;">
+                    <p v-if="myReservations.length" style="color:yellow; font-size:11px; margin-bottom:10px; margin-top:-15px; margin-left:20px;">
                         Click the <b>ID</b> button and share your Identities to help get them bids.
                     </p>
                     <section v-if="!myReservations.length">
