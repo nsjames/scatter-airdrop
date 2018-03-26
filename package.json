@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "dotenv-webpack": "^1.5.4",
     "eosjs-ecc": "^2.0.1",
     "particles.js": "^2.0.0",

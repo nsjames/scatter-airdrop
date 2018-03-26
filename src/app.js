@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import VueInitializer from './vue/VueInitializer';
 import {Routing} from './vue/Routing';
 import * as Actions from './store/constants'

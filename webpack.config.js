@@ -18,10 +18,7 @@ function replaceSuffixes(file){
         .replace('scss', 'css')
 }
 
-const filesToPack = [
-    'app.js',
-    'styles.scss'
-];
+const filesToPack = [ 'app.js', 'styles.scss' ];
 const entry = filesToPack.reduce((o, file) => Object.assign(o, {[replaceSuffixes(file)]: `./src/${file}`}), {});
 
 const phaserModulePath = path.join(__dirname, '/node_modules/phaser/');
