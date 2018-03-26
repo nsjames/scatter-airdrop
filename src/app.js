@@ -64,10 +64,7 @@ class App {
     async initializeEthereum(store){
 
         let web3 = window.web3;
-        if(typeof web3 === 'undefined'){
-            alert("You need meta mask");
-            return false;
-        }
+        if(typeof web3 === 'undefined') return false;
 
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
         web3.eth.net.getId().then(id => {

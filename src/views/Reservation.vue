@@ -84,7 +84,7 @@
                 this.$router.push('/?bid='+this.reservation.name)
             },
             twitterShare(){
-                const url = "http://www.airdrop.scatter-eos.com/#/identity/"+this.reservation.name;
+                const url = "http://airdrop.scatter-eos.com/#/identity/"+this.reservation.name;
                 const text = `Want the unique name '${this.reservation.name}' on #EOS for Scatter? Come bid on it! @Scatter_EOS`;
                 window.open('http://twitter.com/share?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
             },
