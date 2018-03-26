@@ -113,7 +113,7 @@
                 }));
             },
             popupConfirmNewReservation(){
-                let validName = name => /^[-a-z0-9_]+$/i.test(name);
+                const validName = name => /^[-a-z0-9_]+$/i.test(name);
                 if(this.newReservation.name.trim().length <= 2 || !this.newReservation.publicKey.trim().length) {
                     this[Actions.PUSH_SNACKBAR](new Snackbar(`
                         Both a name and an EOS public key is required. You can generate a new public key by using the

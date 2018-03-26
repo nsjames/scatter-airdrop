@@ -82,7 +82,7 @@
                 // selected text.
 
                 // We are getting a reference to the hidden input field.
-                let copier = this.$refs.copier;
+                const copier = this.$refs.copier;
 
                 // Then we're going to set it's value to the private key
                 copier.value = privateKey;

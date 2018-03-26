@@ -2,13 +2,13 @@ import Index from '../views/Index.vue'
 import Landing from '../views/Landing.vue'
 import Reservation from '../views/Reservation.vue'
 
-export let RouteNames = {
+export const RouteNames = {
     INDEX:'index',
     LANDING:'landing',
     RESERVATION:'reservation'
 };
 
-let RouteViews = {
+const RouteViews = {
     [RouteNames.INDEX]:Index,
     [RouteNames.LANDING]:Landing
 };
@@ -16,7 +16,7 @@ let RouteViews = {
 export class Routing {
 
     static builder(){
-        let routeNames = Object.keys(RouteNames).map(key => RouteNames[key]);
+        const routeNames = Object.keys(RouteNames).map(key => RouteNames[key]);
 
         let routesBuilder = {};
         routeNames.map(routeName => {

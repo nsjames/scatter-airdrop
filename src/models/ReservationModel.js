@@ -1,4 +1,4 @@
-export let RESERVATION_TYPES = {
+export const RESERVATION_TYPES = {
     USER:'User',
     DAPP:'Dapp'
 };

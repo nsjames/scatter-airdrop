@@ -6,7 +6,7 @@ import {actions} from './actions';
 
 Vue.use(Vuex);
 
-let state = {
+const state = {
     popup:null,
     snackbars:[],
     w3:null,
@@ -16,7 +16,7 @@ let state = {
     terms:'',
 };
 
-let getters = {
+const getters = {
     onMainNet:state => state.w3net !== null && (process.env.CURRENT_NETWORK === '' || state.w3net === Number(process.env.CURRENT_NETWORK)),
     newReservation:state => state.popup.data,
     eosContract:state => new state.w3.eth.Contract(require('../copied/assets/eos_abi.json'), process.env.EOS_CONTRACT_ADDRESS),
@@ -28,7 +28,7 @@ let getters = {
     sellingBid:state => state.popup.data.bid,
 };
 
-export let store = new Vuex.Store({
+export const store = new Vuex.Store({
     state,
     getters,
     mutations,

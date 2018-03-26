@@ -95,8 +95,8 @@
         },
         methods: {
             submitBid(){
-                let bytes = string => this.w3.utils.fromAscii(string);
-                let price = this.price * 1000000000000000000;
+                const bytes = string => this.w3.utils.fromAscii(string);
+                const price = this.price * 1000000000000000000;
 
                 if(this.price < 0.01){
                     this[Actions.PUSH_SNACKBAR](new Snackbar(`
@@ -154,7 +154,7 @@
                     return false;
                 }
 
-                let bid = BidModel.fromJson({
+                const bid = BidModel.fromJson({
                     reservationId:this.popup.data.id,
                     publicKey:this.publicKey,
                     price,
@@ -163,7 +163,7 @@
 
                 bid.email = this.email;
 
-                let finish = result => {
+                const finish = result => {
                     this.popup.loading = false;
                     if(result && result.hasOwnProperty('transactionHash')){
                         this.submitted = true;
