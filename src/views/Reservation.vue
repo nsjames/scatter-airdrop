@@ -28,11 +28,16 @@
                 <section class="cta">
                     <rounded-button big="Submit Bid" @click.native="bidOnName"></rounded-button>
                     <br>
-                    <rounded-button big="Share" small="On Twitter" @click.native="twitterShare"></rounded-button>
+                    <figure class="social-icon" @click="facebookShare">
+                        <i class="fa fa-facebook-square"></i>
+                    </figure>
+                    <figure class="social-icon" @click="twitterShare">
+                        <i class="fa fa-twitter"></i>
+                    </figure>
                 </section>
 
                 <router-link to="/">
-                    <figure class="terms">Back</figure>
+                    <figure class="terms">BACK</figure>
                 </router-link>
             </section>
 
@@ -86,7 +91,12 @@
             twitterShare(){
                 const url = "http://airdrop.scatter-eos.com/#/identity/"+this.reservation.name;
                 const text = `Want the unique name '${this.reservation.name}' on #EOS for Scatter? Come bid on it! @Scatter_EOS`;
-                window.open('http://twitter.com/share?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+                window.open(`http://twitter.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+            },
+            facebookShare(){
+                const url = "http://airdrop.scatter-eos.com/#/identity/"+this.reservation.name;
+                const text = `Want the unique name '${this.reservation.name}' on EOS for Scatter? Come bid on it!`;
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${text}&hashtag=#EOS`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
             },
             ...mapActions([
                 Actions.SET_SEARCH_TERMS
@@ -96,6 +106,29 @@
 </script>
 
 <style lang="scss">
+    .social-icon {
+        width:calc(50% - 20px);
+        height:60px;
+        line-height:60px;
+        border-radius:80px;
+        background:rgba(255,255,255,0.1);
+        color:#fff;
+        font-size:28px;
+        text-align:center;
+        display:inline-block;
+        margin:0 5px;
+        cursor: pointer;
+        transition:all 0.2s ease;
+        transition-property: color, background, box-shadow;
+        box-shadow:0 0 150px rgba(255,255,255,0);
+
+        &:hover {
+            background:#fff;
+            color:#444;
+            box-shadow:0 0 150px rgba(255,255,255,0.2);
+        }
+    }
+
     .identity {
         height:600px;
         width:100%;
