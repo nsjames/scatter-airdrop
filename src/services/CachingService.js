@@ -3,8 +3,8 @@ import ReservationModel from '../models/ReservationModel'
 import BidModel from '../models/BidModel'
 import {prep} from '../util/sockets'
 
-const baseURL = process.env.CACHER_URI;
-const http = axios.create({baseURL});
+let baseURL = process.env.CACHER_URI;
+let http = axios.create({baseURL});
 
 export default class CachingService {
 

@@ -1,6 +1,6 @@
 import * as Actions from './constants'
 
-export const actions = {
+export let actions = {
     [Actions.SET_WS]:({commit}, ws) => commit(Actions.SET_WS, ws),
     [Actions.SET_WS_NET]:({commit}, n) => commit(Actions.SET_WS_NET, n),
     [Actions.SET_WEB3]:({commit}, w3) => commit(Actions.SET_WEB3, w3),

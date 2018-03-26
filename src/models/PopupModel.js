@@ -1,4 +1,4 @@
-export const POPUP_TYPES = {
+export let POPUP_TYPES = {
     GENERATE_KEY_PAIR:'gkp',
     CONFIRM_NEW_RESERVATION:'cnr',
     CONFIRM_SALE:'cs',

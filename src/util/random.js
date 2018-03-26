@@ -1,1 +1,1 @@
-export const random = Math.random() * 100000000000 + 1;
+export let random = Math.random() * 100000000000 + 1;

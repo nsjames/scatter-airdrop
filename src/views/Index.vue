@@ -248,7 +248,7 @@
     import ContractService from '../services/ContractService'
     import {BID_STATE} from '../models/BidModel'
 
-    const timer = 20000;
+    let timer = 20000;
     export default {
         data(){ return {
             firstTime:localStorage.getItem("firstTime") === null,
@@ -277,7 +277,7 @@
             setTimeout(() => {
                 if(this.$route.query.bid) {
                     this[Actions.SET_SEARCH_TERMS](this.$route.query.bid);
-                    const originalTop = document.getElementById('searchbar').getBoundingClientRect().top;
+                    let originalTop = document.getElementById('searchbar').getBoundingClientRect().top;
                     window.scrollBy({
                         top: originalTop-50,
                         behavior: "smooth"
@@ -322,8 +322,8 @@
                 this.firstTime = !this.firstTime;
                 if(this.firstTime){
                     setTimeout(() => {
-                        const readme = this.$refs.readme;
-                        const originalTop = readme.getBoundingClientRect().top;
+                        let readme = this.$refs.readme;
+                        let originalTop = readme.getBoundingClientRect().top;
                         window.scrollBy({
                             top: originalTop-50,
                             behavior: "smooth"

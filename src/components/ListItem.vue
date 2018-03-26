@@ -181,7 +181,7 @@
             submitBid(){
                 if(!this.w3 || !this.onMainNet){ this.noMetaMask(); return false; }
                 if(this.disabled) return false;
-                const highestBidEthereumKey = this.bids.length ? this.bids[0].state === BID_STATE.UNBID ? '' : this.bids[0].eth : '';
+                let highestBidEthereumKey = this.bids.length ? this.bids[0].state === BID_STATE.UNBID ? '' : this.bids[0].eth : '';
                 this[Actions.SET_POPUP](PopupModel.bid(this.reservation, highestBidEthereumKey), res => {
                     this.opened();
                 });
@@ -219,7 +219,7 @@
                     return false;
                 }
 
-                const resulted = bids => {
+                let resulted = bids => {
                     this.bids = bids;
                     this.fetched = true;
                     this.bidTimeout = setTimeout(() => this.loadBids(), 10000);
@@ -230,7 +230,7 @@
                     .catch(err => resulted([]))
             },
             twoDaysSince(bid){
-                const days = bid.timestamp + (1000 * 60 * 60 * 24 * 2);
+                let days = bid.timestamp + (1000 * 60 * 60 * 24 * 2);
                 return +new Date() > days
             },
             isBiddable(r){

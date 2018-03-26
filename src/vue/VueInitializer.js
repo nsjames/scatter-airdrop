@@ -19,7 +19,7 @@ export default class VueInitializer {
         this.setupVuePlugins();
         this.setupVueFilters();
         this.registerComponents(components);
-        const router = this.setupRouting(routes, middleware);
+        let router = this.setupRouting(routes, middleware);
 
         this.setupVue(router);
         routerCallback(router, store);
@@ -41,13 +41,13 @@ export default class VueInitializer {
     }
 
     setupRouting(routes, middleware){
-        const router = new VueRouter({routes});
+        let router = new VueRouter({routes});
         router.beforeEach((to, from, next) => middleware(to, next, store));
         return router;
     }
 
     setupVue(router){
-        const app = new Vue({router, store});
+        let app = new Vue({router, store});
         app.$mount('#scatter-airdrop');
         document.getElementById('scatter-airdrop').removeAttribute('id')
     }

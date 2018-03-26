@@ -1,6 +1,6 @@
 import * as Mutations from './constants'
 
-export const mutations = {
+export let mutations = {
     [Mutations.SET_WS]:(state, ws) => state.ws = ws,
     [Mutations.SET_WS_NET]:(state, n) => state.w3net = n,
     [Mutations.SET_WEB3]:(state, w3) => state.w3 = w3,

@@ -68,7 +68,7 @@
         },
         mounted(){
 //            setTimeout(() => {
-//                const p = new PopupModel(POPUP_TYPES.CONFIRM_NEW_RESERVATION, ReservationModel.user(), () => {});
+//                let p = new PopupModel(POPUP_TYPES.CONFIRM_NEW_RESERVATION, ReservationModel.user(), () => {});
 //                p.loading = true;
 //                this[Actions.SET_POPUP](p);
 //            }, 500)
@@ -87,7 +87,7 @@
                 if(this.popup){
                     setTimeout(() => {
                         particlesJS.load('popup-particles', './assets/particles.json');
-                        const p = document.getElementById('popup');
+                        let p = document.getElementById('popup');
                         if(p.offsetHeight > window.innerHeight){
                             p.style.height = window.innerHeight-90+'px';
                             p.style['overflow-y'] = 'scroll';

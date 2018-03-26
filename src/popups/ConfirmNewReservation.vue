@@ -101,7 +101,7 @@
                     return false;
                 }
 
-                const finish = result => {
+                let finish = result => {
                     this.popup.loading = false;
                     if(result && result.hasOwnProperty('trx') && result.trx){
 //                        this[Actions.SET_POPUP](null);

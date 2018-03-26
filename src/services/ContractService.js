@@ -1,29 +1,29 @@
 import CachingService from './CachingService';
 
-const decimals = 1000000000000000000;
+let decimals = 1000000000000000000;
 
 export default class ContractService {
 
     constructor(){}
 
     static reserve(context, reservation){
-        const {name, publicKey} = reservation;
+        let {name, publicKey} = reservation;
 
         return new Promise(async (resolve, reject) => {
-            const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.reserveUser()', context);
-            const options = {from:context.mmaddr};
+            let bytes = string => context.w3.utils.fromAscii(string);
+            let exit = ContractService.exiter(reject, 'ContractService.reserveUser()', context);
+            let options = {from:context.mmaddr};
 
-            const reservationArgs = [
+            let reservationArgs = [
                 bytes(name.toLowerCase()),
                 bytes(publicKey)
             ];
 
-            const exists = await context.scatterContract.methods.exists(bytes(name.toLowerCase())).call().catch(exit);
+            let exists = await context.scatterContract.methods.exists(bytes(name.toLowerCase())).call().catch(exit);
             if(exists) exit("The name you have requested already exists!");
             context.popup.loading = true;
 
-            const reservationPrice = await context.scatterContract.methods.reservationPrice().call().catch(exit);
+            let reservationPrice = await context.scatterContract.methods.reservationPrice().call().catch(exit);
 
             ContractService.allowEOS(context,reservationPrice,exit).then(async allowed => {
                 if(!allowed) exit("You must approve the EOS allowance");
@@ -32,7 +32,7 @@ export default class ContractService {
                     .on('transactionHash', async (hash) => {
                         reservation.trx = hash;
 
-                        const cached = await CachingService.cacheNewReservationPrivateData(reservation);
+                        let cached = await CachingService.cacheNewReservationPrivateData(reservation);
                         resolve({trx:hash});
                     })
                     .on('error', error => {
@@ -47,8 +47,8 @@ export default class ContractService {
     static isSignatory(context){
         context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
-            const exit = ContractService.exiter(reject, 'ContractService.isSignatory()', context);
-            const signatory = await context.scatterContract.methods.getSignatory().call().catch(exit);
+            let exit = ContractService.exiter(reject, 'ContractService.isSignatory()', context);
+            let signatory = await context.scatterContract.methods.getSignatory().call().catch(exit);
             resolve(context.mmaddr === signatory);
         })
     }
@@ -56,11 +56,11 @@ export default class ContractService {
     static bid(context, bid){
         context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
-            const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.bid()', context);
-            const options = {from:context.mmaddr, value:bid.price};
+            let bytes = string => context.w3.utils.fromAscii(string);
+            let exit = ContractService.exiter(reject, 'ContractService.bid()', context);
+            let options = {from:context.mmaddr, value:bid.price};
 
-            const bidArgs = [
+            let bidArgs = [
                 Number(bid.reservationId),
                 bytes(bid.publicKey)
             ];
@@ -69,7 +69,7 @@ export default class ContractService {
                 .on('transactionHash', async (hash) => {
                     bid.trx = hash;
 
-                    const cached = await CachingService.bid(bid);
+                    let cached = await CachingService.bid(bid);
 
                     resolve({transactionHash:hash});
                 })
@@ -84,11 +84,11 @@ export default class ContractService {
     static sell(context, reservation, bid){
         context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
-            const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.sell()', context);
-            const options = {from:context.mmaddr, gasLimit: "200000"};
+            let bytes = string => context.w3.utils.fromAscii(string);
+            let exit = ContractService.exiter(reject, 'ContractService.sell()', context);
+            let options = {from:context.mmaddr, gasLimit: "200000"};
 
-            const canSell = await CachingService.sell(context.mmaddr, reservation.id);
+            let canSell = await CachingService.sell(context.mmaddr, reservation.id);
             if(!canSell){
                 exit('You can not sell this name right now.');
                 return false;
@@ -99,7 +99,7 @@ export default class ContractService {
                     resolve({trx:hash});
                 })
                 .on('error', async error => {
-                    const unsold = await CachingService.unsell(context.mmaddr, reservation.id);
+                    let unsold = await CachingService.unsell(context.mmaddr, reservation.id);
                     exit(error);
                 });
         })
@@ -108,21 +108,21 @@ export default class ContractService {
     static unbid(context, reservation, bid){
         context.popup.loading = true;
         return new Promise(async (resolve, reject) => {
-            const bytes = string => context.w3.utils.fromAscii(string);
-            const exit = ContractService.exiter(reject, 'ContractService.unbid()', context);
-            const options = {from:context.mmaddr, gasLimit:"100000"};
+            let bytes = string => context.w3.utils.fromAscii(string);
+            let exit = ContractService.exiter(reject, 'ContractService.unbid()', context);
+            let options = {from:context.mmaddr, gasLimit:"100000"};
 
-            const canUnbid = await CachingService.unbid(context.mmaddr, reservation.id, bid.price);
+            let canUnbid = await CachingService.unbid(context.mmaddr, reservation.id, bid.price);
             if(!canUnbid){
                 resolve(false);
                 return false;
             }
 
             context.scatterContract.methods.unBid(reservation.id).send(options).catch(async error => {
-                const rebid = await CachingService.rebid(context.mmaddr, reservation.id);
+                let rebid = await CachingService.rebid(context.mmaddr, reservation.id);
                 exit(error);
             }).then(unbid => {
-                const {transactionHash} = unbid;
+                let {transactionHash} = unbid;
                 resolve({transactionHash});
             })
         })
@@ -139,23 +139,23 @@ export default class ContractService {
 
     static allowEOS(context, price, exit){
         return new Promise(async (resolve, reject) => {
-            const saddr = process.env.SCATTER_CONTRACT_ADDRESS;
-            const options = {from:context.mmaddr};
+            let saddr = process.env.SCATTER_CONTRACT_ADDRESS;
+            let options = {from:context.mmaddr};
 
-            const balance = await context.eosContract.methods.balanceOf(context.mmaddr).call().catch(exit);
+            let balance = await context.eosContract.methods.balanceOf(context.mmaddr).call().catch(exit);
             if(balance < price) exit(`Not enough EOS in account. Account needs ${price/decimals} EOS available.`);
 
             // Bypasses this step if there is already an allowance.
-            const preAllowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call().catch(exit);
+            let preAllowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call().catch(exit);
             if(preAllowance >= price) {
                 resolve(true);
                 return false;
             }
 
             let i = 0;
-            const maxTimes = 60;
-            const interval = 1000;
-            const checkStatus = () => {
+            let maxTimes = 60;
+            let interval = 1000;
+            let checkStatus = () => {
                 setTimeout(async () => {
                     i++;
                     if(i > maxTimes){
@@ -164,14 +164,14 @@ export default class ContractService {
                         return false;
                     }
 
-                    const allowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call().catch(() => exit('Could not fetch allowance. Try again in a few minutes.'));
+                    let allowance = await context.eosContract.methods.allowance(context.mmaddr, saddr).call().catch(() => exit('Could not fetch allowance. Try again in a few minutes.'));
                     if(allowance < price) checkStatus();
                     else resolve(true);
                 }, interval);
             };
 
             let checkingStatus = false;
-            const approved = await context.eosContract.methods.approve(saddr, price).send(options)
+            let approved = await context.eosContract.methods.approve(saddr, price).send(options)
                 .on('transactionHash', async (hash) => {
                     checkingStatus = true;
                     checkStatus();

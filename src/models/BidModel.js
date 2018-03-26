@@ -1,4 +1,4 @@
-export const BID_STATE = {
+export let BID_STATE = {
     TOP:'top',
     BEAT:'beat',
     SOLD:'sold',

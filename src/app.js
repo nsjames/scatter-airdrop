@@ -26,13 +26,13 @@ import Bid from './popups/Bid.vue'
 
 import Web3 from 'web3';
 
-const isLive = process.env.LIVE === 'true';
+let isLive = process.env.LIVE === 'true';
 
 class App {
 
     constructor(){
-        const routes = Routing.routes();
-        const components = [
+        let routes = Routing.routes();
+        let components = [
             {tag:'view-base', vue:ViewBase},
             {tag:'popup', vue:Popup},
             {tag:'snackbars', vue:Snackbars},
@@ -50,7 +50,7 @@ class App {
             {tag:'popup-bid', vue:Bid},
         ];
 
-        const middleware = (to, next, store) => {
+        let middleware = (to, next, store) => {
             if(!isLive && to.name !== RouteNames.LANDING) next({name:RouteNames.LANDING});
             else if(isLive && to.name === RouteNames.LANDING) next({name:RouteNames.INDEX});
             else next();
@@ -88,4 +88,4 @@ class App {
 
 }
 
-const popup = new App();
+let popup = new App();
