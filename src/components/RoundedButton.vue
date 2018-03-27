@@ -32,7 +32,8 @@
     .rounded-button {
         cursor: pointer;
         position: relative;
-        width:350px;
+        max-width:350px;
+        width:100%;
         height:70px;
         text-align:center;
 

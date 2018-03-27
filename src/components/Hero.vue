@@ -334,4 +334,13 @@
             }
         }
     }
+    @media (max-width:550px) {
+        .hero {
+            .content {
+                .reservation {
+                    padding: 0 20px;
+                }
+            }
+        }
+    }
 </style>

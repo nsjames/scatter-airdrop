@@ -430,6 +430,20 @@
 
 
 
+    @media (max-width:550px) {
+        .bid-info {
+
+        }
+
+        .actions {
+            position:relative;
+            text-align: right;
+            margin-top: 10px;
+        }
+    }
+
+
+
     .open-bids-enter {
         max-height:2px;
         max-width:0;
