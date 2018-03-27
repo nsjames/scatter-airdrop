@@ -76,11 +76,17 @@ class App {
     }
 
     getAccounts(web3, store){
+        const banned = [
+            '0x97afb4abae4202e4598c3da44d3448aea0a0a8a8',
+            '0xf7f6462f9cb01935a9fb13b9f0cd40f6b1e5826e'
+        ];
         web3.eth.getAccounts((err, accounts) => {
             if(accounts.length) {
                 if(accounts[0] !== web3.defaultAccount){
-                    web3.defaultAccount = accounts[0];
-                    store.dispatch(Actions.SET_WEB3, web3);
+                    if(!banned.includes(accounts[0])) {
+                        web3.defaultAccount = accounts[0];
+                        store.dispatch(Actions.SET_WEB3, web3);
+                    }
                 }
             } else store.dispatch(Actions.SET_WEB3, null);
 
