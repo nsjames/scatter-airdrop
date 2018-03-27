@@ -32,11 +32,9 @@
     .rounded-button {
         cursor: pointer;
         position: relative;
-        max-width:350px;
-        width:100%;
+        width:350px;
         height:70px;
         text-align:center;
-        padding: 0 30px;
 
         display: flex;
         justify-content: center;
@@ -77,6 +75,14 @@
             box-shadow:0 2px 5px rgba(0,0,0,0.25);
             color:#96b4fb;
             opacity:0.2;
+        }
+    }
+
+    @media (max-width:550px) {
+        .rounded-button {
+            max-width:350px;
+            width:100%;
+            padding: 0 30px;
         }
     }
 </style>
