@@ -119,6 +119,12 @@
                         Genetics to be used as a gambling mechanism. There is no difference between the letters other than that given by the community, they do not affect RIDL in any way.
                     </b>
                 </p>
+                <hr>
+
+                <h2>Disclaimer</h2>
+                <p>
+                    <b>We take no responsibility for the names being reserved.</b>
+                </p>
             </section>
 
 
