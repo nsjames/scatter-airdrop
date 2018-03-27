@@ -36,6 +36,7 @@
         width:100%;
         height:70px;
         text-align:center;
+        padding: 0 30px;
 
         display: flex;
         justify-content: center;
