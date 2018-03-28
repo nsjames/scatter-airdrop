@@ -31,8 +31,9 @@
                 </section>
 
                 <p style="color:#fff; margin-top:10px;">
-                    Private reservations will not take part in the auction. This is for users that don't want their
-                    personal data connected to their public keys. Choose wisely, you can not change this later.
+                    Biddable reservations can be bid upon by anyone, you can then sell them to the highest bidder.
+                    Private reservations will not be displayed on the auction, however anyone watching the reservation contract can see who
+                    they belong to.
                 </p>
 
                 <section class="cta">
