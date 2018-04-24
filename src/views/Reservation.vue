@@ -13,21 +13,21 @@
                 <modifier :text="gene" v-for="(gene, i) in reservation.genetics" :class="{'full':gene !== '0x00'}" :key="i"></modifier>
             </figure>
 
-            <section class="logo-container">
-                <h1 v-if="reservation.topPrice">
-                    <p class="tagline">LAST SOLD FOR</p>
-                    <span class="open-sans">{{reservation.topPrice | price}}</span> ETH
-                </h1>
-                <h1 v-else>
-                    <span class="open-sans">1</span> EOS
-                    <p class="tagline">LAST SOLD PRICE</p>
-                </h1>
-            </section>
+            <!--<section class="logo-container">-->
+                <!--<h1 v-if="reservation.topPrice">-->
+                    <!--<p class="tagline">LAST SOLD FOR</p>-->
+                    <!--<span class="open-sans">{{reservation.topPrice | price}}</span> ETH-->
+                <!--</h1>-->
+                <!--<h1 v-else>-->
+                    <!--<span class="open-sans">1</span> EOS-->
+                    <!--<p class="tagline">LAST SOLD PRICE</p>-->
+                <!--</h1>-->
+            <!--</section>-->
 
             <section class="reservation">
                 <section class="cta">
-                    <rounded-button big="Submit Bid" @click.native="bidOnName"></rounded-button>
-                    <br>
+                    <!--<rounded-button big="Submit Bid" @click.native="bidOnName"></rounded-button>-->
+                    <!--<br>-->
                     <figure class="social-icon" @click="facebookShare">
                         <i class="fa fa-facebook-square"></i>
                     </figure>

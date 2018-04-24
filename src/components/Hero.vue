@@ -20,21 +20,21 @@
                     <circle-button icon="fa-plus-circle" @click.native="popupGenerateKeyPair"></circle-button>
                 </section>
 
-                <section class="switcher">
-                    <figure class="active-switch" :class="{'left':newReservation.biddable}"></figure>
-                    <figure class="switch"
-                            @click="newReservation.changeBiddable(true)"
-                            :class="{'active':newReservation.biddable}">Biddable</figure>
-                    <figure class="switch"
-                            @click="newReservation.changeBiddable(false)"
-                            :class="{'active':!newReservation.biddable}">Private</figure>
-                </section>
+                <!--<section class="switcher">-->
+                    <!--<figure class="active-switch" :class="{'left':newReservation.biddable}"></figure>-->
+                    <!--<figure class="switch"-->
+                            <!--@click="newReservation.changeBiddable(true)"-->
+                            <!--:class="{'active':newReservation.biddable}">Biddable</figure>-->
+                    <!--<figure class="switch"-->
+                            <!--@click="newReservation.changeBiddable(false)"-->
+                            <!--:class="{'active':!newReservation.biddable}">Private</figure>-->
+                <!--</section>-->
 
-                <p style="color:#fff; margin-top:10px;">
-                    Biddable reservations can be bid upon by anyone, you can then sell them to the highest bidder.
-                    Private reservations will not be displayed on the auction, however anyone watching the reservation contract can see who
-                    they belong to.
-                </p>
+                <!--<p style="color:#fff; margin-top:10px;">-->
+                    <!--Biddable reservations can be bid upon by anyone, you can then sell them to the highest bidder.-->
+                    <!--Private reservations will not be displayed on the auction, however anyone watching the reservation contract can see who-->
+                    <!--they belong to.-->
+                <!--</p>-->
 
                 <section class="cta">
                     <rounded-button big="Reserve Identity Name" @click.native="popupConfirmNewReservation"></rounded-button>

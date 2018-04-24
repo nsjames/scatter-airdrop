@@ -29,7 +29,8 @@
                 <h2>Identity Name Reservation</h2>
                 <p>
                     If you want to make sure that you get the name you want at the launch of the EOS mainnet or if you simply want to take part in the name auction, you can reserve a
-                    name and claim it. Reserved names will be transferable until around June 1st at which point they will be locked to the EOS public key they are tied to at the time.
+                    name and claim it.
+                    <!--Reserved names will be transferable until around June 1st at which point they will be locked to the EOS public key they are tied to at the time.-->
                 </p>
                 <hr>
 
@@ -40,22 +41,22 @@
                 </p>
                 <hr>
 
-                <h2>Auction & Bidding</h2>
-                <p>
-                    <b class="light">After you have reserved a User Identity Name you may trade it as you please for any price you wish.</b>
+                <!--<h2>Auction & Bidding</h2>-->
+                <!--<p>-->
+                    <!--<b class="light">After you have reserved a User Identity Name you may trade it as you please for any price you wish.</b>-->
 
-                    You can bid on already reserved Identity Names and
-                    if the owner selects to sell to your bid you will be transferred ownership of the name. If a new bid overthrows yours your bid will be returned to you.
-                    All gas spent on bidding is non-refundable.
-                </p>
+                    <!--You can bid on already reserved Identity Names and-->
+                    <!--if the owner selects to sell to your bid you will be transferred ownership of the name. If a new bid overthrows yours your bid will be returned to you.-->
+                    <!--All gas spent on bidding is non-refundable.-->
+                <!--</p>-->
 
-                <figure class="bounding-box">
-                    <p style="margin:0;">
-                        <b>All bids are done in ETH.</b> The reason for doing the bidding in ETH instead of EOS ERC20 tokens is to make sure that users can
-                        still re-claim their unsellable bids once the contract is locked. If we were to use EOS ERC20 tokens they would not be transferrable
-                        after June 1st and would be stuck within the Scatter Reservation contract.
-                    </p>
-                </figure>
+                <!--<figure class="bounding-box">-->
+                    <!--<p style="margin:0;">-->
+                        <!--<b>All bids are done in ETH.</b> The reason for doing the bidding in ETH instead of EOS ERC20 tokens is to make sure that users can-->
+                        <!--still re-claim their unsellable bids once the contract is locked. If we were to use EOS ERC20 tokens they would not be transferrable-->
+                        <!--after June 1st and would be stuck within the Scatter Reservation contract.-->
+                    <!--</p>-->
+                <!--</figure>-->
 
                 <figure class="bounding-box">
                     <p style="margin:0;">
@@ -82,7 +83,7 @@
                     <p>
                         <span class="light">
                         When a name is reserved it is applied a random genetic letter.<br>
-                        Every time it is sold it is applied another genetic modifier. This will happen until the genetic sequence has reached 5 letters.
+                        <!--Every time it is sold it is applied another genetic modifier. This will happen until the genetic sequence has reached 5 letters.-->
                         </span>
                         Identities registered with RIDL after the mainnet launch will not have this genetic material assigned to them upon registration.
                         It is given exclusively for the participants of the reservation and auction. Think of it as a permanent mark of appreciation from us at Scatter.
@@ -137,11 +138,11 @@
                         <h1>My Reservations</h1>
                     </section>
                     <figure v-for="r in myReservations">
-                        <list-item :disabled="r.isLocked()" hidebid="true" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
+                        <list-item :disabled="r.isLocked()" hidebid="true" :reservation="r" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
                     </figure>
-                    <p v-if="myReservations.length" style="color:yellow; font-size:11px; margin-bottom:10px; margin-left:20px;">
-                        Click the <b>ID</b> button and share your Identities to help get them bids.
-                    </p>
+                    <!--<p v-if="myReservations.length" style="color:yellow; font-size:11px; margin-bottom:10px; margin-left:20px;">-->
+                        <!--Click the <b>ID</b> button and share your Identities to help get them bids.-->
+                    <!--</p>-->
                     <section v-if="!myReservations.length">
                         <figure class="bounding-box">
                             <p style="color:#fff;">
@@ -152,26 +153,26 @@
                 </section>
 
                 <!-- MY BIDS -->
-                <section class="list">
-                    <section class="head">
-                        <h1>My Bids</h1>
-                        <section class="filters">
-                            <figure class="filter"
-                                    :class="{'active':selectedBidState === state}"
-                                    v-for="state in bidStates" @click="changeBidState(state)">{{state === bidStates.TOP ? 'Open' : state}}</figure>
-                        </section>
-                    </section>
-                    <figure v-for="b in myOpenBids">
-                        <list-item :bid="b"></list-item>
-                    </figure>
-                    <section v-if="!myOpenBids.length">
-                        <figure class="bounding-box">
-                            <p style="color:#fff;">
-                                You don't have any {{selectedBidState}} bids yet.
-                            </p>
-                        </figure>
-                    </section>
-                </section>
+                <!--<section class="list">-->
+                    <!--<section class="head">-->
+                        <!--<h1>My Bids</h1>-->
+                        <!--<section class="filters">-->
+                            <!--<figure class="filter"-->
+                                    <!--:class="{'active':selectedBidState === state}"-->
+                                    <!--v-for="state in bidStates" @click="changeBidState(state)">{{state === bidStates.TOP ? 'Open' : state}}</figure>-->
+                        <!--</section>-->
+                    <!--</section>-->
+                    <!--<figure v-for="b in myOpenBids">-->
+                        <!--<list-item :bid="b"></list-item>-->
+                    <!--</figure>-->
+                    <!--<section v-if="!myOpenBids.length">-->
+                        <!--<figure class="bounding-box">-->
+                            <!--<p style="color:#fff;">-->
+                                <!--You don't have any {{selectedBidState}} bids yet.-->
+                            <!--</p>-->
+                        <!--</figure>-->
+                    <!--</section>-->
+                <!--</section>-->
             </section>
 
 
@@ -201,11 +202,11 @@
 
             <!-- FEATURED RESERVATIONS -->
             <section class="list">
-                <section class="head">
-                    <h1>Trending Bid Battles</h1>
-                </section>
+                <!--<section class="head">-->
+                    <!--<h1>Trending Bid Battles</h1>-->
+                <!--</section>-->
                 <figure v-for="r in trendingReservations">
-                    <list-item :disabled="r.isLocked()" :reservation="r" :open="selectedReservation === r.id" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
+                    <list-item :disabled="r.isLocked()" :reservation="r" v-on:sold="r.locked = +new Date();" v-on:opened="setSelection(r)"></list-item>
                 </figure>
                 <section v-if="!trendingReservations.length">
                     <figure class="bounding-box">

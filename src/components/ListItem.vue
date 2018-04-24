@@ -14,105 +14,105 @@
                 </section>
 
                 <!-- BID INFO -->
-                <section class="bid-info">
-                    <section class="kv">
-                        <figure class="key">{{reservation.topPrice | price}}</figure>
-                        <figure class="value">ETH</figure>
-                    </section>
-                    <section class="kv">
-                        <figure class="key">{{reservation.openBids}}</figure>
-                        <figure class="value">BIDS</figure>
-                    </section>
-                    <section class="kv">
-                        <figure class="key">RESERVED</figure>
-                        <figure class="value open-sans" style="text-transform: uppercase">
-                            {{reservation.timestamp/1000 | moment("from", "now")}}
-                        </figure>
-                    </section>
-                </section>
+                <!--<section class="bid-info">-->
+                    <!--<section class="kv">-->
+                        <!--<figure class="key">{{reservation.topPrice | price}}</figure>-->
+                        <!--<figure class="value">ETH</figure>-->
+                    <!--</section>-->
+                    <!--<section class="kv">-->
+                        <!--<figure class="key">{{reservation.openBids}}</figure>-->
+                        <!--<figure class="value">BIDS</figure>-->
+                    <!--</section>-->
+                    <!--<section class="kv">-->
+                        <!--<figure class="key">RESERVED</figure>-->
+                        <!--<figure class="value open-sans" style="text-transform: uppercase">-->
+                            <!--{{reservation.timestamp/1000 | moment("from", "now")}}-->
+                        <!--</figure>-->
+                    <!--</section>-->
+                <!--</section>-->
 
                 <!-- BID ACTIONS -->
                 <section class="actions">
                     <action-button text="ID" @click.native="viewIdentity"></action-button>
-                    <action-button v-if="!isOwner()" text="BID" :active="open"></action-button>
+                    <!--<action-button v-if="!isOwner()" text="BID" :active="open"></action-button>-->
                 </section>
 
             </section>
 
             <!-- BID ITEM -->
-            <section class="container" v-if="bid">
+            <!--<section class="container" v-if="bid">-->
 
-                <!-- NAME -->
-                <section class="name-container">
-                    <figure class="name"><span class="open-sans">{{bid.price | price}}</span> <b>ETH</b></figure>
-                </section>
+                <!--&lt;!&ndash; NAME &ndash;&gt;-->
+                <!--<section class="name-container">-->
+                    <!--<figure class="name"><span class="open-sans">{{bid.price | price}}</span> <b>ETH</b></figure>-->
+                <!--</section>-->
 
-                <!-- BID INFO -->
-                <section class="bid-info">
-                    <section class="kv" style="color:#fff;">
-                        <figure class="key">{{bid.reservation.name}}</figure>
-                    </section>
-                </section>
+                <!--&lt;!&ndash; BID INFO &ndash;&gt;-->
+                <!--<section class="bid-info">-->
+                    <!--<section class="kv" style="color:#fff;">-->
+                        <!--<figure class="key">{{bid.reservation.name}}</figure>-->
+                    <!--</section>-->
+                <!--</section>-->
 
-                <!-- BID ACTIONS -->
-                <section class="actions">
-                    <action-button v-if="bid.state !== bidStates.UNBID && twoDaysSince(bid)" text="UNBID" @click.native="submitUnBid(bid)"></action-button>
-                    <action-button text="VIEW" @click.native="viewReservation"></action-button>
-                </section>
+                <!--&lt;!&ndash; BID ACTIONS &ndash;&gt;-->
+                <!--<section class="actions">-->
+                    <!--&lt;!&ndash;<action-button v-if="bid.state !== bidStates.UNBID && twoDaysSince(bid)" text="UNBID" @click.native="submitUnBid(bid)"></action-button>&ndash;&gt;-->
+                    <!--<action-button text="VIEW" @click.native="viewReservation"></action-button>-->
+                <!--</section>-->
 
-            </section>
+            <!--</section>-->
         </section>
 
         <!-- BIDS DROPDOWN -->
-        <section class="bids" v-if="open">
+        <!--<section class="bids" v-if="open">-->
 
-            <section v-if="fetched">
-                <section class="no-bids" v-if="!bids.length">
-                    <h1>There are no bids yet</h1>
-                    <p>
-                        This Reservation does not have any bids yet.
-                    </p>
-                    <figure class="cta" v-if="!isOwner()">
-                        <rounded-button big="Place a Bid" @click.native="submitBid"></rounded-button>
-                    </figure>
-                </section>
+            <!--<section v-if="fetched">-->
+                <!--<section class="no-bids" v-if="!bids.length">-->
+                    <!--<h1>There are no bids yet</h1>-->
+                    <!--<p>-->
+                        <!--This Reservation does not have any bids yet.-->
+                    <!--</p>-->
+                    <!--<figure class="cta" v-if="!isOwner()">-->
+                        <!--<rounded-button big="Place a Bid" @click.native="submitBid"></rounded-button>-->
+                    <!--</figure>-->
+                <!--</section>-->
 
-                <section v-else>
-                    <section class="bid" :class="{'red':b.state === bidStates.UNBID}" v-for="(b, index) in bids">
-                        <!-- NAME -->
-                        <section class="name-container">
-                            <figure class="name">
-                                <span class="open-sans">{{b.price | price}}</span> <b>ETH</b>
-                                <span v-if="b.state === bidStates.UNBID">( RETRACTED )</span>
-                            </figure>
-                        </section>
+                <!--<section v-else>-->
+                    <!--<section class="bid" :class="{'red':b.state === bidStates.UNBID}" v-for="(b, index) in bids">-->
+                        <!--&lt;!&ndash; NAME &ndash;&gt;-->
+                        <!--<section class="name-container">-->
+                            <!--<figure class="name">-->
+                                <!--<span class="open-sans">{{b.price | price}}</span> <b>ETH</b>-->
+                                <!--<span v-if="b.state === bidStates.UNBID">( RETRACTED )</span>-->
+                            <!--</figure>-->
+                        <!--</section>-->
 
-                        <!-- BID INFO -->
-                        <section class="bid-info">
-                            <section class="kv">
-                                <figure class="key">POSTED</figure>
-                                <figure class="value open-sans" style="text-transform: uppercase">{{b.timestamp/1000 | moment("from", "now")}}</figure>
-                            </section>
-                        </section>
+                        <!--&lt;!&ndash; BID INFO &ndash;&gt;-->
+                        <!--<section class="bid-info">-->
+                            <!--<section class="kv">-->
+                                <!--<figure class="key">POSTED</figure>-->
+                                <!--<figure class="value open-sans" style="text-transform: uppercase">{{b.timestamp/1000 | moment("from", "now")}}</figure>-->
+                            <!--</section>-->
+                        <!--</section>-->
 
-                        <!-- BID ACTIONS -->
-                        <section v-if="index === 0">
-                            <section class="actions" v-if="!isOwner() && !isBidOwner(b)">
-                                <action-button text="OUTBID" @click.native="submitBid"></action-button>
-                            </section>
-                            <section class="actions" v-if="!isOwner() && isBidOwner(b)">
-                                <action-button v-if="b.state !== bidStates.UNBID && twoDaysSince(b) && b.trx !== reservation.trx" text="UNBID" @click.native="submitUnBid(b)"></action-button>
-                                <action-button v-if="b.state === bidStates.UNBID" text="OUTBID" @click.native="submitBid"></action-button>
-                            </section>
-                            <section class="actions" v-if="isOwner()">
-                                <action-button v-if="b.state !== bidStates.UNBID && !disabled && b.trx !== reservation.trx" text="SELL" @click.native="submitSale(b)"></action-button>
-                            </section>
-                        </section>
-                    </section>
-                </section>
-            </section>
+                        <!--&lt;!&ndash; BID ACTIONS &ndash;&gt;-->
+                        <!--&lt;!&ndash;<section v-if="index === 0">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<section class="actions" v-if="!isOwner() && !isBidOwner(b)">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<action-button text="OUTBID" @click.native="submitBid"></action-button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</section>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<section class="actions" v-if="!isOwner() && isBidOwner(b)">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<action-button v-if="b.state !== bidStates.UNBID && twoDaysSince(b) && b.trx !== reservation.trx" text="UNBID" @click.native="submitUnBid(b)"></action-button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<action-button v-if="b.state === bidStates.UNBID" text="OUTBID" @click.native="submitBid"></action-button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</section>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<section class="actions" v-if="isOwner()">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<action-button v-if="b.state !== bidStates.UNBID && !disabled && b.trx !== reservation.trx" text="SELL" @click.native="submitSale(b)"></action-button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</section>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</section>&ndash;&gt;-->
+                    <!--</section>-->
+                <!--</section>-->
+            <!--</section>-->
 
-        </section>
+        <!--</section>-->
     </section>
 </template>
 
