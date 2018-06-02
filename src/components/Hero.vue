@@ -6,60 +6,49 @@
         <section class="content">
             <section class="logo-container">
                 <figure class="logo">Scatter<figure class="airplane"></figure></figure>
-                <figure class="tagline">
-                    Reservation & Reputation ID Token Airdrop
-                </figure>
+                <!--<figure class="tagline">-->
+                    <!--Reservation & Reputation ID Token Airdrop-->
+                <!--</figure>-->
             </section>
 
-            <section class="reservation" v-if="w3 && onMainNet">
-                <section class="input-container">
-                    <input placeholder="Choose an Identity Name" v-model="newReservation.name" />
-                </section>
-                <section class="input-container animated" :class="{'rubberBand':generatedKey}">
-                    <input style="padding-right:50px;" placeholder="Enter an EOS Public Key" v-model="newReservation.publicKey" />
-                    <circle-button icon="fa-plus-circle" @click.native="popupGenerateKeyPair"></circle-button>
-                </section>
-
-                <!--<section class="switcher">-->
-                    <!--<figure class="active-switch" :class="{'left':newReservation.biddable}"></figure>-->
-                    <!--<figure class="switch"-->
-                            <!--@click="newReservation.changeBiddable(true)"-->
-                            <!--:class="{'active':newReservation.biddable}">Biddable</figure>-->
-                    <!--<figure class="switch"-->
-                            <!--@click="newReservation.changeBiddable(false)"-->
-                            <!--:class="{'active':!newReservation.biddable}">Private</figure>-->
+            <!--<section class="reservation" v-if="w3 && onMainNet">-->
+                <!--<section class="input-container">-->
+                    <!--<input placeholder="Choose an Identity Name" v-model="newReservation.name" />-->
+                <!--</section>-->
+                <!--<section class="input-container animated" :class="{'rubberBand':generatedKey}">-->
+                    <!--<input style="padding-right:50px;" placeholder="Enter an EOS Public Key" v-model="newReservation.publicKey" />-->
+                    <!--<circle-button icon="fa-plus-circle" @click.native="popupGenerateKeyPair"></circle-button>-->
                 <!--</section>-->
 
-                <!--<p style="color:#fff; margin-top:10px;">-->
-                    <!--Biddable reservations can be bid upon by anyone, you can then sell them to the highest bidder.-->
-                    <!--Private reservations will not be displayed on the auction, however anyone watching the reservation contract can see who-->
-                    <!--they belong to.-->
-                <!--</p>-->
+                <!--&lt;!&ndash;<section class="switcher">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<figure class="active-switch" :class="{'left':newReservation.biddable}"></figure>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<figure class="switch"&ndash;&gt;-->
+                            <!--&lt;!&ndash;@click="newReservation.changeBiddable(true)"&ndash;&gt;-->
+                            <!--&lt;!&ndash;:class="{'active':newReservation.biddable}">Biddable</figure>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<figure class="switch"&ndash;&gt;-->
+                            <!--&lt;!&ndash;@click="newReservation.changeBiddable(false)"&ndash;&gt;-->
+                            <!--&lt;!&ndash;:class="{'active':!newReservation.biddable}">Private</figure>&ndash;&gt;-->
+                <!--&lt;!&ndash;</section>&ndash;&gt;-->
 
-                <section class="cta">
-                    <rounded-button big="Reserve Identity Name" @click.native="popupConfirmNewReservation"></rounded-button>
-                </section>
-            </section>
+                <!--&lt;!&ndash;<p style="color:#fff; margin-top:10px;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Biddable reservations can be bid upon by anyone, you can then sell them to the highest bidder.&ndash;&gt;-->
+                    <!--&lt;!&ndash;Private reservations will not be displayed on the auction, however anyone watching the reservation contract can see who&ndash;&gt;-->
+                    <!--&lt;!&ndash;they belong to.&ndash;&gt;-->
+                <!--&lt;!&ndash;</p>&ndash;&gt;-->
 
-            <section class="reservation" v-else>
+                <!--<section class="cta">-->
+                    <!--<rounded-button big="Reserve Identity Name" @click.native="popupConfirmNewReservation"></rounded-button>-->
+                <!--</section>-->
+            <!--</section>-->
+
+            <section class="reservation">
                 <figure class="" style="color:#fff;">
-                    <figure class="box" v-if="!w3">
-                        You need MetaMask in order to participate in the reservation and auction system.
+                    <figure class="box">
+                        That's it. Reservations are over.
                         <br><br>
-                        <p>If you already <b>have</b> MetaMask, it's probably locked.</p>
-                    </figure>
-                    <figure class="box" v-else>
-                        MetaMask is on the wrong network. You must be on the <b>Main Network</b>.
+                        <p>Congrats to everyone who reserved a RIDL identity for 100 years.</p>
                     </figure>
                 </figure>
-                <br>
-                <br>
-
-                <section class="cta">
-                    <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">
-                        <rounded-button big="Get MetaMask Extension" small="Who uses these things anyway?"></rounded-button>
-                    </a>
-                </section>
 
             </section>
 

@@ -59,6 +59,27 @@ class App {
         new VueInitializer(routes, components, middleware, (router, store) => {
             if(isLive) this.initializeEthereum(store);
         });
+
+        document.addEventListener('scatterLoaded', async () => {
+
+            // const scatter = window.scatter;
+            // const network = {blockchain:'eth', host:'localhost', port:8545};
+            // const web3 = scatter.eth(network, Web3, "http");
+            //
+            // const identity = await scatter.getIdentity({ accounts:[network] });
+            // const publicKey = identity.accounts[0].publicKey;
+            //
+            // const abi = require('./copied/assets/eos_abi.json')
+            // const eosToken = new web3.eth.Contract(abi, '0xb2fba330f7a95d337f62b54f8a563fed2da24023');
+            //
+            // const requiredFields = { personal:['firstname'], location:['city'] };
+            // const fieldsCallback = fields => console.log('FIELDS CALLBACK', fields);
+            // const options = {from:publicKey, abi, requiredFields, fieldsCallback};
+            // eosToken.methods.approve('0xdeb535139a6cce61e313eafa78627f0bb61b892f', '10').send(options)
+            //     .on('transactionHash', async (hash) => console.log('hash', hash))
+            //     .on('receipt', receipt => console.log('receipt', receipt))
+            //     .on('error', error => console.log('error', error));
+        })
     }
 
     async initializeEthereum(store){
@@ -67,6 +88,8 @@ class App {
         if(typeof web3 === 'undefined') return false;
 
         //TODO: Catch unsupported browsers
+
+
 
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
         web3.eth.net.getId().then(id => {

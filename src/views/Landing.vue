@@ -2,7 +2,7 @@
     <section style="padding-bottom:200px;">
 
         <!-- HERO -->
-        <landing-hero></landing-hero>
+        <!--<landing-hero></landing-hero>-->
 
         <section class="max-1024 pad-sides">
 
